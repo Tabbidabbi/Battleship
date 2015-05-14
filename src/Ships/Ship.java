@@ -83,7 +83,7 @@ public abstract class Ship {
         return currentReloadTime;
     }
 
-    public void setCurrentReloadTime(int currentReloadTime) {
+    public void setCurrentReloadTime() {
         this.currentReloadTime = this.reloadTime;
     }
 
