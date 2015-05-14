@@ -20,9 +20,10 @@ public class Battleship {
         for (int i = 0; i < amountOfPlayer; i++) {
             IO.print("Geben Sie den Namen des " + (i + 1) + " Spielers ein: ");
             String name = IO.readString();
-            player[i] = new Player(i, name);
+            player[i] = new Player((i + 1), name);
 
         }
+
         for (int p = 0; p < player.length; p++) {
             IO.print("Spieler " + player[p].getName() + " , " + "Sie können nun " + player[p].getShips().length + " Schiffe setzen: " + "\n"
                     + "1 Zerstörer, 1 Fregatte, 2 Corvetten und 2 U-Boote." + "\n");
@@ -80,7 +81,7 @@ public class Battleship {
 
                     //Runde des Spielers pla
                     for (int pla = 0; pla < player.length; pla++) {
-                        IO.println("Spieler " + player[pla].getNumber() + " " + player[pla].getName() + " ist am Zug!");
+                        IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
 
                         //Abfrage, welcher Spieler angegriffen werden soll
                         IO.println("Welchen Spieler m�chtest du angreifen?");
@@ -88,7 +89,7 @@ public class Battleship {
                         //Gibt die Liste aller Spieler aus, die angegriffen werden k�nnen
                         printListOfOpponents(player, pla);
 
-                        IO.print("Gebe die Nummer des Gegners ein: ");
+                        IO.print("Geben Sie die Nummer des Gegners ein: ");
 
                         //Einlesen des SPielers, den man angreifen will
                         int opponent = IO.readInt();
@@ -103,6 +104,7 @@ public class Battleship {
                         for (int shi = 0; shi < player[pla].getShips().length; shi++) {
                             IO.println("Nummer: " + player[pla].getShips()[shi].getNumber() + " Typ: " + player[pla].getShips()[shi].getName());
                         }
+						printListOfShips(player, pla);
 
                         //Eingabe, welches Schiff schie�en soll
                         IO.println("Gebe die Nummer des Schiffs ein: ");
@@ -113,6 +115,12 @@ public class Battleship {
 
                         //Reichweite des Schusses, um diese der Methode setShot zu �bergeben
                         int shootRange = player[pl].getShips()[ship].getShootRange();
+
+						//Hierf𲠮och ne Methode schreiben
+                        boolean orient = false;
+                        if(shootRange > 1){
+                        	orient = getOrientation();
+                        }
 
                         //Abfrage
                         IO.println("Wo soll das Schiff hinschie�en?");
@@ -125,8 +133,8 @@ public class Battleship {
 
                         //Schie�en
                         //Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
-                        player[pla].getField().setShot(x, y, shootRange);
-                        player[pla].getOpponentField().setShot(x, y, shootRange);
+                        player[pla].getField().setShot(x, y, shootRange, orient);
+                        player[pla].getOpponentField().setShot(x, y, shootRange, orient);
                         player[pla].getOpponentField().printOpponentField();
 
                         if (player[pla].getIsLost() == true) {
@@ -137,6 +145,7 @@ public class Battleship {
                 //Setzt pl auf 0, damit die Runde vorn beginnt
                 if (pl == player.length) {
                     pl = 0;
+
                 }
 
             }
@@ -185,14 +194,6 @@ public static int getAmountOfPlayers() {
         return orientation;
     }
 
-
-		
-	
-	
-	
-	
-	
-	
 	/**
 	 * Gibt Liste der Spieler aus
 	 * 
@@ -230,10 +231,11 @@ public static int getAmountOfPlayers() {
 		@param player Playerarray
 		@param playerN Index des Spielers in Player-Array
 	**/
+
 	public static void printListOfShips(Player[] player, int playerN){
 		for(int s = 0; s < player[playerN].getShips().length; s++){
 			if(player[playerN].getShips()[s].getHitpoints() != 0){
-				if(player[playerN].getShips()[s].getReloadTime() == 0){
+				if(player[playerN].getShips()[s].getCurrentReloadTime() == 0){
 				IO.println("Nummer: " + player[playerN].getShips()[s].getNumber() + " Typ: " + player[playerN].getShips()[s].getName());
 			
 				}
