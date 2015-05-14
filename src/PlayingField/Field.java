@@ -45,15 +45,20 @@ public class Field {
 	}	
 	
 	public void setIsShot(){
-		this.isShot = true;
-		if(this.hasShip == true){
-			this.status = 88;
-			this.setHit(true);
-			IO.println("Sie haben ein Schiff getroffen!");
+		if(this.isShot == true){
+			IO.println("Sie haben bereits auf dieses Feld geschossen. Ein verschenkter Schuss!");
 		}
 		else{
-			this.status = 79;
-			IO.println("Sie haben auf Wasser geschossen!");
+			this.isShot = true;
+			if(this.hasShip == true){
+				this.status = 88;
+				this.setHit(true);
+				IO.println("Sie haben ein Schiff getroffen!");
+			}
+			else{
+				this.status = 79;
+				IO.println("Sie haben auf Wasser geschossen!");
+			}
 		}
 	}
 	

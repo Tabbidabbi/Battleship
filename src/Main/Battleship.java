@@ -94,10 +94,11 @@ public class Battleship {
                         //F�r Shiffs-Array
                         ship = ship - 1;
 
-                        //Reichweite des Schusses, um diese der Methode setShot zu �bergeben
+                        //Reichweite des Schusses, um diese der Methode setShot zu uebergeben
                         int shootRange = player[pl].getShips()[ship].getShootRange();
 
                         //Hierf𲠮och ne Methode schreiben
+                        //Hierfuer noch eine Methode schreiben
                         boolean orientation = false;
                         if (shootRange > 1) {
                             orientation = setOrientation();
@@ -107,14 +108,14 @@ public class Battleship {
                         //Abfrage, welcher Spieler angegriffen werden soll
                         IO.println("Welchen Spieler m�chtest du angreifen?");
 
-                        //Gibt die Liste aller Spieler aus, die angegriffen werden k�nnen
+                        //Gibt die Liste aller Spieler aus, die angegriffen werden koennen
                         printListOfOpponents(player, pla);
 
                         IO.print("Geben Sie die Nummer des Gegners ein: ");
 
                         //Einlesen des SPielers, den man angreifen will
                         int opponent = IO.readInt();
-                        //Wert f�r Array, denn Array f�ngt bei 0 an zu z�hlen
+                        //Wert fuer Array, denn Array faengt bei 0 an zu zaehlen
                         opponent = opponent - 1;
 
                         //Gibt das Spielfeld des Gegners aus
@@ -133,6 +134,10 @@ public class Battleship {
                         //Schie�en
                         shootOnPlayField(player, opponent, shootRange, orientation, x, y);
 
+                        //Nachladezeit nach Schuss setzen, damit das Schiff erst nachladen muss,
+                        //um wieder schie�en zu koennen
+                        player[pla].getShips()[ship].setCurrentReloadTime();
+
                         //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
                         if (player[pla].getIsLost() == true) {
                             //Spieler player[pla] aus dem Spieler-Array nehmen
@@ -149,13 +154,12 @@ public class Battleship {
         }
     }
 
-    /**
-     * Setzen des Schusses auf das PlayField
-     *
-     * @param player
-     * @param pla
-     * @param shootRange
-     * @param orient
+
+    /*
+     * @param player Spielerarray
+     * @param opponent Integerwert des Gegners f�r das Finden im Array
+     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
+     * @param orientation Richtung des Schusses
      * @param x Korrdinate des Fieldes
      * @param y Korrdinate des Fieldes
      */
@@ -163,16 +167,16 @@ public class Battleship {
         //Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
         player[opponent].getField().setShot(x, y, shootRange, orientation);
         player[opponent].getOpponentField().setShot(x, y, shootRange, orientation);
+
+        //Pr�fen ob schiffe getroffen
+        //Gibt das Feld des Gegner aus
         player[opponent].getOpponentField().printOpponentField();
     }
 
-//    public static int setCoordinate(int max) {
-//        int c = IO.readInt();
-//        if (c < 0 || c > max) {
-//            return -1;
-//        }
-//        return c;
-//    }
+    /**
+     *
+     * @return Integerwert fuer die Richtung
+     */
     public static boolean setOrientation() {
         boolean orientation = false;
         IO.print("Bitte geben Sie die Ausrichtung des Schiffes an (h = horizontal, v = vertical: ");
