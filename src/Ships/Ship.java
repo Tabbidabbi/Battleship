@@ -110,12 +110,12 @@ public abstract class Ship {
     public void setName(String name) {
         this.name = name;
     }
-    
 
     public void shoot(int x, int y) {
         //Zeichen auf dem Spielfeld �ndern
         //Pr�fen, ob etwas getroffen wurde
     }
+//Methode um die Schiffe zu setzen
 
     public boolean placeShip(int x, int y, boolean orientation, PlayField playfield) {
 
@@ -127,10 +127,13 @@ public abstract class Ship {
             // Alle Felder liegen innerhalb des playfields
             for (int i = 0; i < getSize(); i++) {
                 try {
+                    //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
+                    //gibt die ganze Methode "false zurück".
                     if (!playfield.getPlayField()[x][y + i].isActive()) {
                         System.out.println(" Sorry geht nicht");
                         return false;
                     }
+                    //Falls das Schiff mit der Größe nicht in das Array passt, fange die Fehlermeldung ab und gib folgendes aus...
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Schiff passt nicht auf Spielfeld, bitte neue koordinaten eingeben!!!");
                     return false;
@@ -139,7 +142,7 @@ public abstract class Ship {
             // Setze Schiff
             for (int i = 0; i < getSize(); i++) {
                 playfield.getPlayField()[x][y + i].setStatus(this.getSign());
-                
+
             }
 
 //             Deaktiviere Felder um das Schiff herum
@@ -147,7 +150,8 @@ public abstract class Ship {
                 for (int j = (x - 1); j < x + 2; j++) {
                     try {
                         playfield.getPlayField()[j][i].setActive(false);
-                        playfield.getPlayField()[j][i].setStatus((char)102);
+                        //Tetstweise eingebaut um zu sehen welche Felder deaktiviert werden
+                        playfield.getPlayField()[j][i].setStatus((char) 102);
                     } catch (ArrayIndexOutOfBoundsException e) {
 
                     }
@@ -159,10 +163,13 @@ public abstract class Ship {
 
             for (int i = 0; i < getSize(); i++) {
                 try {
+                    //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
+                    //gibt die ganze Methode "false zurück".
                     if (!playfield.getPlayField()[x + i][y].isActive()) {
                         System.out.println(" Sorry geht nicht");
                         return false;
                     }
+                    //Falls das Schiff mit der Größe nicht in das Array passt, fange die Fehlermeldung ab und gib folgendes aus...
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Schiff passt nicht auf Spielfeld, bitte neue koordinaten eingeben!!!");
                     return false;
@@ -178,7 +185,8 @@ public abstract class Ship {
                 for (int j = (y - 1); j < y + 2; j++) {
                     try {
                         playfield.getPlayField()[i][j].setActive(false);
-                        playfield.getPlayField()[i][j].setStatus((char)102);
+                        //Tetstweise eingebaut um zu sehen welche Felder deaktiviert werden
+                        playfield.getPlayField()[i][j].setStatus((char) 102);
                     } catch (ArrayIndexOutOfBoundsException e) {
 
                     }
