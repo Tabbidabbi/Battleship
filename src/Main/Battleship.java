@@ -106,9 +106,9 @@ public class Battleship {
                         int shootRange = player[pl].getShips()[ship].getShootRange();
 
 						//Hierfð² ®och ne Methode schreiben
-                        boolean orient = false;
+                        boolean orientation = false;
                         if(shootRange > 1){
-                        	orient = getOrientation();
+                        	orientation = getOrientation();
                         }
                         
                         //2. Auswahl eines Gegners. (Methode hierfür schreiben)
@@ -139,10 +139,7 @@ public class Battleship {
                         int y = IO.readInt();
 
                         //Schieï¿½en
-                        //Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
-                        player[pla].getField().setShot(x, y, shootRange, orient);
-                        player[pla].getOpponentField().setShot(x, y, shootRange, orient);
-                        player[pla].getOpponentField().printOpponentField();
+                        shootOnPlayField(player, opponent, shootRange, orientation, x, y);
 
                         //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
                         
@@ -160,6 +157,23 @@ public class Battleship {
             }
         }
     }
+
+    /**
+     * Setzen des Schusses auf das PlayField
+     * @param player
+     * @param pla
+     * @param shootRange
+     * @param orient
+     * @param x Korrdinate des Fieldes
+     * @param y Korrdinate des Fieldes
+     */
+    
+	public static void shootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, int x, int y) {
+		//Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
+		player[opponent].getField().setShot(x, y, shootRange, orientation);
+		player[opponent].getOpponentField().setShot(x, y, shootRange, orientation);
+		player[opponent].getOpponentField().printOpponentField();
+	}
 
 
     public static int getAmountOfPlayers() {

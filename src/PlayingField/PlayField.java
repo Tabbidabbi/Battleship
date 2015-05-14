@@ -29,8 +29,18 @@ public class PlayField {
 	}
 	
 	public void setShot(int x, int y, int shootRange, boolean orientation){
-		this.fieldMatrix[x][y].setIsShot();
-		//shootRange ist die Anzahl der Felder, die getroffen werden (Destroyer 3, usw.)
+		if(orientation == true){
+			for(int i = 0; i < shootRange; i++){
+				this.fieldMatrix[x + i][y].setIsShot();
+			}
+		}
+		else{
+			for(int i = 0; i < shootRange; i++){
+				this.fieldMatrix[x][y + i].setIsShot();
+				
+			}
+			
+		}
 	}
 	
 	public void printPlayField(){
