@@ -12,7 +12,7 @@ public class PlayField {
 	private Field[][] fieldMatrix;
 
 	public PlayField(){
-		this.fieldMatrix = new Field[7][7];
+		this.fieldMatrix = new Field[12][12];
 		for(int i = 0; i < fieldMatrix.length; i++){
 			for(int j = 0; j < fieldMatrix[i].length; j++){
 				fieldMatrix[i][j] = new Field();

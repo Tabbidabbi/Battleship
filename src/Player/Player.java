@@ -47,6 +47,10 @@ public class Player {
 
     }
 
+    public void initialize() {
+        
+    }
+    
     public int getNumber() {
         return this.number;
     }
