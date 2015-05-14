@@ -10,9 +10,9 @@ import IO.IO;
 public class Field {
 	
 	//Flags
-	private boolean isShot;  //O
+	private boolean isShot;  //O char 79
 	private boolean isWater;  //~
-	private boolean isHit;   //X
+	private boolean isHit;   //X char 88
 	private boolean hasShip;
 	private boolean active;
 	// Im Status stehen die Symbole
@@ -27,7 +27,7 @@ public class Field {
 		this.isWater = true;
 		this.isHit = false;
 		this.hasShip = false;
-                this.active = true;
+        this.active = true;
 		this.status = 126;
 	}
 
@@ -46,13 +46,14 @@ public class Field {
 	
 	public void setIsShot(){
 		this.isShot = true;
-		this.isWater = false;
-		this.status = 79;
 		if(this.hasShip == true){
-			IO.println("Du hast ein Schiff getroffen");
+			this.status = 88;
+			this.setHit(true);
+			IO.println("Sie haben ein Schiff getroffen!");
 		}
 		else{
-			IO.println("Du hast auf Wasser geschossen");
+			this.status = 79;
+			IO.println("Sie haben auf Wasser geschossen!");
 		}
 	}
 	
@@ -74,7 +75,7 @@ public class Field {
 		this.status = 88;
 	}
 	
-	public boolean isHasShip() {
+	public boolean getHasShip() {
 		return hasShip;
 	}
 
