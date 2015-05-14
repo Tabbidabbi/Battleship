@@ -58,6 +58,7 @@ public class Battleship {
                         player[p].getShips()[4].placeShip(xU, yU, orientationU, player[p].getField());
                         break;
                     default:
+                        System.out.println("Bitte Schiff erneut setzen!!");
 
                 }
 

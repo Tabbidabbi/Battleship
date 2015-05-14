@@ -143,10 +143,11 @@ public abstract class Ship {
             }
 
 //             Deaktiviere Felder um das Schiff herum
-            for (int i = (y - 1); i <= getSize() + 2; i++) {
+            for (int i = (y - 1); i <= getSize() + y; i++) {
                 for (int j = (x - 1); j < x + 2; j++) {
                     try {
-                        playfield.getPlayField()[i][j].setActive(false);
+                        playfield.getPlayField()[j][i].setActive(false);
+                        playfield.getPlayField()[j][i].setStatus((char)102);
                     } catch (ArrayIndexOutOfBoundsException e) {
 
                     }
@@ -159,9 +160,11 @@ public abstract class Ship {
             for (int i = 0; i < getSize(); i++) {
                 try {
                     if (!playfield.getPlayField()[x + i][y].isActive()) {
+                        System.out.println(" Sorry geht nicht");
                         return false;
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Schiff passt nicht auf Spielfeld, bitte neue koordinaten eingeben!!!");
                     return false;
                 }
             }
@@ -171,10 +174,11 @@ public abstract class Ship {
             }
 
             // Deaktiviere Felder um das Schiff herum
-            for (int i = (x - 1); i <= getSize() + 2; i++) {
+            for (int i = (x - 1); i <= getSize() + x; i++) {
                 for (int j = (y - 1); j < y + 2; j++) {
                     try {
                         playfield.getPlayField()[i][j].setActive(false);
+                        playfield.getPlayField()[i][j].setStatus((char)102);
                     } catch (ArrayIndexOutOfBoundsException e) {
 
                     }
