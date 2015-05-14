@@ -83,7 +83,7 @@ public class Battleship {
                     for (int pla = 0; pla < player.length; pla++) {
                         IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
 
-                        //1. Auswahl eines verfügbaren Schiffes.
+                        //1. Auswahl eines verfügbaren Schiffes. (Methode hierfür schreiben)
                         IO.println("Mit welchem Schiff willst du schieï¿½en?");
                         for (int shi = 0; shi < player[pla].getShips().length; shi++) {
                             IO.println("Nummer: " + player[pla].getShips()[shi].getNumber() + " Typ: " + player[pla].getShips()[shi].getName());
@@ -95,6 +95,11 @@ public class Battleship {
 
                         //Einlesen des Schiffs
                         int ship = IO.readInt();
+                        
+                        
+                        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[pla].getShips()[ship - 1].getName() + " ausgewählt!");
+                        
+                        //Für Shiffs-Array
                         ship = ship - 1;
 
                         //Reichweite des Schusses, um diese der Methode setShot zu ï¿½bergeben
@@ -106,7 +111,7 @@ public class Battleship {
                         	orient = getOrientation();
                         }
                         
-                        //2. Auswahl eines Gegners.
+                        //2. Auswahl eines Gegners. (Methode hierfür schreiben)
                         //Abfrage, welcher Spieler angegriffen werden soll
                         IO.println("Welchen Spieler mï¿½chtest du angreifen?");
 
@@ -123,7 +128,7 @@ public class Battleship {
                         //Gibt das Spielfeld des Gegners aus
                         player[opponent].getField().printOpponentField();
 
-                        //3. Koordinate auf dem Spielfeld auswählen.
+                        //3. Koordinate auf dem Spielfeld auswählen. (Methode hierfür schreiben)
                         //Abfrage
                         IO.println("Wo soll das Schiff hinschieï¿½en?");
                         //Einlesen X-Koordinate

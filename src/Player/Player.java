@@ -35,9 +35,9 @@ public class Player {
         this.ships[0] = new Destroyer(1);
         this.ships[1] = new Frigate(2);
         this.ships[2] = new Corvette(3);
-        this.ships[3] = new Corvette(3);
-        this.ships[4] = new Submarine(4);
-        this.ships[5] = new Submarine(4);
+        this.ships[3] = new Corvette(4);
+        this.ships[4] = new Submarine(5);
+        this.ships[5] = new Submarine(6);
 
         //Erstellung des Feldes
         this.playfield = new PlayField();
