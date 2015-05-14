@@ -104,7 +104,7 @@ public class Field {
 	 * Methode zum Ausgeben des aktuellen Status
 	 */
 	public void print(){
-		IO.print(this.status + "\t");
+		IO.print(this.status + "  ");
 	}
 	
 	
