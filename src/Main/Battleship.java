@@ -83,23 +83,7 @@ public class Battleship {
                     for (int pla = 0; pla < player.length; pla++) {
                         IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
 
-                        //Abfrage, welcher Spieler angegriffen werden soll
-                        IO.println("Welchen Spieler mï¿½chtest du angreifen?");
-
-                        //Gibt die Liste aller Spieler aus, die angegriffen werden kï¿½nnen
-                        printListOfOpponents(player, pla);
-
-                        IO.print("Geben Sie die Nummer des Gegners ein: ");
-
-                        //Einlesen des SPielers, den man angreifen will
-                        int opponent = IO.readInt();
-                        //Wert fï¿½r Array, denn Array fï¿½ngt bei 0 an zu zï¿½hlen
-                        opponent = opponent - 1;
-
-                        //Gibt das Spielfeld des Gegners aus
-                        player[opponent].getField().printOpponentField();
-
-                        //Schiff
+                        //1. Auswahl eines verfügbaren Schiffes.
                         IO.println("Mit welchem Schiff willst du schieï¿½en?");
                         for (int shi = 0; shi < player[pla].getShips().length; shi++) {
                             IO.println("Nummer: " + player[pla].getShips()[shi].getNumber() + " Typ: " + player[pla].getShips()[shi].getName());
@@ -121,7 +105,25 @@ public class Battleship {
                         if(shootRange > 1){
                         	orient = getOrientation();
                         }
+                        
+                        //2. Auswahl eines Gegners.
+                        //Abfrage, welcher Spieler angegriffen werden soll
+                        IO.println("Welchen Spieler mï¿½chtest du angreifen?");
 
+                        //Gibt die Liste aller Spieler aus, die angegriffen werden kï¿½nnen
+                        printListOfOpponents(player, pla);
+
+                        IO.print("Geben Sie die Nummer des Gegners ein: ");
+
+                        //Einlesen des SPielers, den man angreifen will
+                        int opponent = IO.readInt();
+                        //Wert fï¿½r Array, denn Array fï¿½ngt bei 0 an zu zï¿½hlen
+                        opponent = opponent - 1;
+
+                        //Gibt das Spielfeld des Gegners aus
+                        player[opponent].getField().printOpponentField();
+
+                        //3. Koordinate auf dem Spielfeld auswählen.
                         //Abfrage
                         IO.println("Wo soll das Schiff hinschieï¿½en?");
                         //Einlesen X-Koordinate
@@ -137,6 +139,8 @@ public class Battleship {
                         player[pla].getOpponentField().setShot(x, y, shootRange, orient);
                         player[pla].getOpponentField().printOpponentField();
 
+                        //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
+                        
                         if (player[pla].getIsLost() == true) {
                             //Spieler player[pla] aus dem Spieler-Array nehmen
                         }
@@ -153,7 +157,7 @@ public class Battleship {
     }
 
 
-public static int getAmountOfPlayers() {
+    public static int getAmountOfPlayers() {
         IO.print("Geben Sie die Anzahl der Spieler ein (2-6): ");
         int amountOfPlayer = IO.readInt();
         if (amountOfPlayer <= 1) {
@@ -167,17 +171,17 @@ public static int getAmountOfPlayers() {
         return amountOfPlayer;
     }
 
-    public static int getXCoordinate() {
-        IO.print("Geben Sie die x-Koordinate zum Setzen des Schiffs ein: ");
-        int x = IO.readInt();
-        return x;
-    }
+	public static int getXCoordinate() {
+	    IO.print("Geben Sie die x-Koordinate zum Setzen des Schiffs ein: ");
+	    int x = IO.readInt();
+	    return x;
+	}
 
-    public static int getYCoordinate() {
-        IO.print("Geben Sie die y-Koordinate zum Setzen des Schiffs ein: ");
-        int y = IO.readInt();
-        return y;
-    }
+	public static int getYCoordinate() {
+	    IO.print("Geben Sie die y-Koordinate zum Setzen des Schiffs ein: ");
+	    int y = IO.readInt();
+	    return y;
+	}
 
     public static boolean getOrientation() {
         boolean orientation = false;
