@@ -17,6 +17,7 @@ public class Battleship {
         int shipY;//y-koordinate
         boolean shipO;// Ausrichtung des Schiffes (h,v)
         Ship ships[];
+        int amountOfPlayer;
         boolean error = false;
 
         IO.println("Herzlich Willkommen zu Schiffe versenken!");
