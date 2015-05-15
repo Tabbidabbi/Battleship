@@ -7,10 +7,10 @@ package Ships;
  */
 public class Submarine extends Ship {
 
-    String name = "Submarines";
+    String name = "U-Boot";
 
     public Submarine(int number) {
-        super((char) 83, 2, false, number, false, 1, 0, 1, "Submarine");
+        super("U", 2, false, number, false, 1, 0, 1, "U-Boot");
     }
 
     public String getName() {

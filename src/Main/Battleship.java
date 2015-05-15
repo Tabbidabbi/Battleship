@@ -38,22 +38,20 @@ public class Battleship {
             String name = IO.readString();
             player[i] = new Player(i + 1, name);
 
-            for (int p = 0; p < player.length; p++) {
-                IO.print("Spieler " + player[p].getName() + " , " + "Sie können nun " + player[p].getShips().length + " Schiffe setzen: " + "\n"
-                        + "1 Zerstörer, 1 Fregatte, 2 Corvetten und 2 U-Boote." + "\n");
-                ships = player[i].getShips();
-                for (int s = 0; s < ships.length;) {
-                    IO.print("Bitte geben Sie die X-Koordinate für " + ships[s].getName() + " ein:");
-                    shipX = IO.readInt();
-                    IO.print("Bitte geben Sie die Y-Koordinate für " + ships[s].getName() + " ein:");
-                    shipY = IO.readInt();
-                    //IO.print("Bitte geben Sie die Ausrichtung des Schiffes an (h = horizontal, v = vertical: ");
-                    shipO = setOrientation();
-                    if (!ships[s].placeShip(shipX, shipY, shipO, player[i].getField())) {
-                        IO.println("Das Schiff konnte nicht gesetzt werden. Bitte erneut versuchen.");
-                    } else {
-                        s++;
-                    }
+            IO.print("Spieler " + player[i].getName() + " , " + "Sie können nun " + player[i].getShips().length + " Schiffe setzen: " + "\n"
+                    + "1 Zerstörer, 1 Fregatte, 2 Corvetten und 2 U-Boote." + "\n");
+            ships = player[i].getShips();
+            for (int s = 0; s < ships.length;) {
+                IO.print("Bitte geben Sie die X-Koordinate für " + ships[s].getName() + " ein:");
+                shipX = IO.readInt();
+                IO.print("Bitte geben Sie die Y-Koordinate für " + ships[s].getName() + " ein:");
+                shipY = IO.readInt();
+                //IO.print("Bitte geben Sie die Ausrichtung des Schiffes an (h = horizontal, v = vertical: ");
+                shipO = setOrientation();
+                if (!ships[s].placeShip(shipX, shipY, shipO, player[i].getField())) {
+                    IO.println("Das Schiff konnte nicht gesetzt werden. Bitte erneut versuchen.");
+                } else {
+                    s++;
                 }
             }
         }

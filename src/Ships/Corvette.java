@@ -8,10 +8,10 @@ package Ships;
 
 public class Corvette extends Ship{
 		
-	String name = "Corvette";
+	String name = "Korvette";
 	
 	public Corvette(int number){
-		super((char)67, 3, false, number, false, 1, 0, 1, "Corvette");
+		super("C", 3, false, number, false, 1, 0, 1, "Korvette");
 		
 	}
 

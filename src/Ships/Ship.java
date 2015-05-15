@@ -15,10 +15,10 @@ public abstract class Ship {
     int currentReloadTime;
     int shootRange;
     int hitpoints;
-    char sign;
+    String sign;
     String name;
 
-    public Ship(char sign, int size, boolean sunk, int number, boolean orientation, int reloadTime, int currentReloadTime, int shootRange, String name) {
+    public Ship(String sign, int size, boolean sunk, int number, boolean orientation, int reloadTime, int currentReloadTime, int shootRange, String name) {
         this.sign = sign;
         this.number = number;
         this.size = size;
@@ -32,7 +32,7 @@ public abstract class Ship {
 
     }
 
-    public char getSign() {
+    public String getSign() {
         return sign;
     }
 
@@ -153,7 +153,7 @@ public abstract class Ship {
                     try {
                         playfield.getPlayField()[j][i].setActive(false);
                         //Tetstweise eingebaut um zu sehen welche Felder deaktiviert werden
-                        playfield.getPlayField()[j][i].setStatus((char) 102);
+//                        playfield.getPlayField()[j][i].setStatus("F");
                     } catch (ArrayIndexOutOfBoundsException e) {
 
                     }
@@ -188,7 +188,7 @@ public abstract class Ship {
                     try {
                         playfield.getPlayField()[i][j].setActive(false);
                         //Tetstweise eingebaut um zu sehen welche Felder deaktiviert werden
-                        playfield.getPlayField()[i][j].setStatus((char) 102);
+//                        playfield.getPlayField()[i][j].setStatus("F");
                     } catch (ArrayIndexOutOfBoundsException e) {
 
                     }

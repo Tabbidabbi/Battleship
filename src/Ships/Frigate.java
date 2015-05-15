@@ -8,10 +8,10 @@ package Ships;
 
 public class Frigate extends Ship {
 	
-	String name = "Frigate";
+	String name = "Fregatte";
 	
 	public Frigate(int number){
-		super((char)70, 4, false, number, false, 2, 0, 2, "Frigate");
+		super("F", 4, false, number, false, 2, 0, 2, "Fregatte");
 		
 	}
 

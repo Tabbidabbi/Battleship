@@ -16,8 +16,10 @@ public class Field {
 	private boolean hasShip;
 	private boolean active;
 	// Im Status stehen die Symbole
-	private char status;
-	
+	private String status;
+        private String number;
+	int nextFigure = 0;
+        String nextChar = "abcdefghijklmnopqrstuvwxyz";
 	/**
 	 * Konstruktor
 	 */
@@ -27,8 +29,9 @@ public class Field {
 		this.isWater = true;
 		this.isHit = false;
 		this.hasShip = false;
-        this.active = true;
-		this.status = 126;
+                this.active = true;
+		this.status = "~";
+                this.nextFigure++;
 	}
 
     public void setActive(boolean active) {
@@ -51,12 +54,12 @@ public class Field {
 		else{
 			this.isShot = true;
 			if(this.hasShip == true){
-				this.status = 88;
+				this.status = "X";
 				this.setHit(true);
 				IO.println("Sie haben ein Schiff getroffen!");
 			}
 			else{
-				this.status = 79;
+				this.status = "O";
 				IO.println("Sie haben auf Wasser geschossen!");
 			}
 		}
@@ -77,7 +80,7 @@ public class Field {
 	public void setHit(boolean isHit) {
 		this.isHit = true;
 		this.isShot = true;
-		this.status = 88;
+		this.status = "X";
 	}
 	
 	public boolean getHasShip() {
@@ -88,7 +91,7 @@ public class Field {
 		this.hasShip = true;
 	}
 
-	public char getStatus(){
+	public String getStatus(){
 		return this.status;
 	}
 
@@ -96,7 +99,7 @@ public class Field {
 	 * 
 	 * @param status �bergabe des Status, welches �bernommen werden sollen.
 	 */
-	public void setStatus(char status){
+	public void setStatus(String status){
 		this.status = status;
 	}
 	

@@ -9,10 +9,10 @@ package Ships;
  */
 public class Destroyer extends Ship {
 
-	String name = "Destroyer";
+	String name = "Zerstörer";
 	
 	public Destroyer(int number) {
-		super((char)68, 5, false, number, false, 3, 0, 3, "Destroyer");
+		super("Z", 5, false, number, false, 3, 0, 3, "Zerstörer");
 		// TODO Auto-generated constructor stub
 	}
 

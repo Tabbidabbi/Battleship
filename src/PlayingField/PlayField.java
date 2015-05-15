@@ -11,7 +11,8 @@ public class PlayField {
 
     private Field[][] fieldMatrix;
     String alphabet = "#abcdefghijklmnopqrstuvwxyz";
-    String figures = "12345678910111213";
+    String figures = "1";
+    
 
     public PlayField() {
         this.fieldMatrix = new Field[16][16];
@@ -47,11 +48,11 @@ public class PlayField {
     public void printPlayField() {
         for (int i = 0; i < fieldMatrix.length; i++) {
             if (i  < fieldMatrix.length) {
-                fieldMatrix[i][0].setStatus((alphabet.charAt(i)));
+//                fieldMatrix[i][0].setStatus((alphabet.charAt(i)));
             }
             for (int j = 0; j < fieldMatrix[i].length; j++) {
                 if (j + 1 < fieldMatrix.length) {
-                    fieldMatrix[0][j + 1].setStatus((char)(49+j));
+//                    fieldMatrix[0][j + 1].setStatus((char)(48+j));
                 }
                 fieldMatrix[i][j].print();
             }
