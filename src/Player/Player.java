@@ -22,6 +22,10 @@ public class Player {
     //private Field[][] field;
     private boolean lost = false;
 
+    /**
+   	 * Konstruktor
+   	 */
+    
     public Player(int number, String name) {
 
         this.number = number;
@@ -46,55 +50,66 @@ public class Player {
         this.opponentField = new PlayField();
 
     }
+    
+    
 
     public void initialize() {
         
     }
     
+    //Getter Methoden deffinieren
+    
     public int getNumber() {
         return this.number;
     }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public Ship[] getShips() {
+        return this.ships;
+    }
+    
+    public boolean getIsLost() {
+        return this.lost;
+    }
+    
+    public PlayField getField() {
+        return playfield;
+    }
+    
+    public PlayField getOpponentField() {
+        return this.opponentField;
+    }
+    
+    //Setter Methoden deffinieren
 
     public void setNumber(int number) {
         this.number = number;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
+    
     public void setName(String name) {
         this.name = name;
     }
 
-    public Ship[] getShips() {
-        return this.ships;
-    }
-
+    
     public void setShips(Ship[] ships) {
         this.ships = ships;
     }
 
-    public boolean getIsLost() {
-        return this.lost;
-    }
-
+    
     public void setLost(boolean lost) {
         this.lost = lost;
     }
 
-    public PlayField getField() {
-        return playfield;
-    }
-
+   
     public void setField(PlayField field) {
         this.playfield = field;
     }
 
-    public PlayField getOpponentField() {
-        return this.opponentField;
-    }
-
+    
     public void setOpponentField(PlayField opponentField) {
         this.opponentField = opponentField;
     }

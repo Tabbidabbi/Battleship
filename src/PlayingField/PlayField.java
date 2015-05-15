@@ -8,12 +8,12 @@ import IO.IO;
  *
  */
 public class PlayField {
-
+	
     private Field[][] fieldMatrix;
 //    String alphabet = "#abcdefghijklmnopqrstuvwxyz";
 //    String figures = "1";
     
-
+  //Aufbau des Felds
     public PlayField() {
         this.fieldMatrix = new Field[16][16];
         for (int i = 0; i < fieldMatrix.length; i++) {
@@ -44,6 +44,8 @@ public class PlayField {
 
         }
     }
+    
+  //Wie sieht das PlayField aus
 
     public void printPlayField() {
         for (int i = 0; i < fieldMatrix.length; i++) {
@@ -60,6 +62,8 @@ public class PlayField {
         }
     }
 
+  //Wie sieht das OpponentField aus
+    
     public void printOpponentField() {
         for (int i = 0; i < fieldMatrix.length; i++) {
             for (int j = 0; j < fieldMatrix[i].length; j++) {

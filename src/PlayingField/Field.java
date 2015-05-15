@@ -17,36 +17,59 @@ public class Field {
 	private boolean active;
 	// Im Status stehen die Symbole
 	private String status;
-        private String number;
+    private String number;
 	int nextFigure = 0;
-        String nextChar = "abcdefghijklmnopqrstuvwxyz";
-	/**
+    String nextChar = "abcdefghijklmnopqrstuvwxyz";
+	
+        
+        /**
 	 * Konstruktor
 	 */
+    
 	public Field(){
 		
 		this.isShot = false;
 		this.isWater = true;
 		this.isHit = false;
 		this.hasShip = false;
-                this.active = true;
+        this.active = true;
 		this.status = "~";
-                this.nextFigure++;
+        this.nextFigure++;
 	}
+	
+	public boolean isActive() {
+        return this.active;
+    }
 
+	//Getter Methoden deffinieren
+	
+	public boolean getIsShot(){
+		return this.isShot;
+	}
+	
+	public boolean getIsWater() {
+		return isWater;
+	}
+	
+	public boolean getIsHit() {
+		return isHit;
+	}
+	
+	public boolean getHasShip() {
+		return hasShip;
+	}
+	
+	public String getStatus(){
+		return this.status;
+	}
+	
+	//Setter Methoden deffinieren
+	
     public void setActive(boolean active) {
         this.active = active;
     }
 
-    public boolean isActive() {
-        return this.active;
-    }
-	
-        
-	public boolean getIsShot(){
-		return this.isShot;
-	}	
-	
+            
 	public void setIsShot(){
 		if(this.isShot == true){
 			IO.println("Sie haben bereits auf dieses Feld geschossen. Ein verschenkter Schuss!");
@@ -65,36 +88,24 @@ public class Field {
 		}
 	}
 	
-	public boolean getIsWater() {
-		return isWater;
-	}
-
+	
 	public void setWater(boolean isWater) {
 		this.isWater = true;
 	}
 
-	public boolean getIsHit() {
-		return isHit;
-	}
-
+	
 	public void setHit(boolean isHit) {
 		this.isHit = true;
 		this.isShot = true;
 		this.status = "X";
 	}
 	
-	public boolean getHasShip() {
-		return hasShip;
-	}
-
+	
 	public void setHasShip(boolean hasShip) {
 		this.hasShip = true;
 	}
 
-	public String getStatus(){
-		return this.status;
-	}
-
+	
 	/**
 	 * 
 	 * @param status �bergabe des Status, welches �bernommen werden sollen.

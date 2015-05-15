@@ -17,6 +17,10 @@ public abstract class Ship {
     int hitpoints;
     String sign;
     String name;
+    
+    /**
+	 * Konstruktor
+	 */
 
     public Ship(String sign, int size, boolean sunk, int number, boolean orientation, int reloadTime, int currentReloadTime, int shootRange, String name) {
         this.sign = sign;
@@ -31,6 +35,8 @@ public abstract class Ship {
         this.name = name;
 
     }
+    
+    //Getter Methoden deffinieren
 
     public String getSign() {
         return sign;
@@ -39,39 +45,61 @@ public abstract class Ship {
     public int getSize() {
         return size;
     }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
+    
     public boolean getIsSunk() {
         return sunk;
-    }
-
-    public void setSunk(boolean sunk) {
-        this.sunk = true;
     }
 
     public int getNumber() {
         return number;
     }
+    
+    public boolean getOrientation() {
+        return orientation;
+    }
+    
+    public int getReloadTime() {
+        return reloadTime;
+    }
+    
+    public int getCurrentReloadTime() {
+        return currentReloadTime;
+    }
+    
+    public int getShootRange() {
+        return shootRange;
+    }
+    
+    public int getHitpoints() {
+        return this.hitpoints;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    //Setter Methoden deffinieren
+    
+    public void setSize(int size) {
+        this.size = size;
+    }
 
+   
+    public void setSunk(boolean sunk) {
+        this.sunk = true;
+    }
+
+    
     public void setNumber(int number) {
         this.number = number;
     }
 
-    public boolean getOrientation() {
-        return orientation;
-    }
-
+    
     public void setOrientation(boolean orientation) {
         this.orientation = orientation;
     }
 
-    public int getReloadTime() {
-        return reloadTime;
-    }
-
+    
     public void setReloadTime(int reloadTime) {
         this.reloadTime = reloadTime;
     }
@@ -81,34 +109,21 @@ public abstract class Ship {
         this.currentReloadTime--;
     }
 
-    public int getCurrentReloadTime() {
-        return currentReloadTime;
-    }
-
+   
     public void setCurrentReloadTime() {
         this.currentReloadTime = this.reloadTime;
     }
 
-    public int getShootRange() {
-        return shootRange;
-    }
-
+   
     public void setShootRange(int shootRange) {
         this.shootRange = shootRange;
-    }
-
-    public int getHitpoints() {
-        return this.hitpoints;
     }
 
     public void setHitpoints() {
         this.hitpoints = this.hitpoints - 1;
     }
 
-    public String getName() {
-        return name;
-    }
-
+   
     public void setName(String name) {
         this.name = name;
     }
