@@ -8,23 +8,48 @@ import IO.IO;
  *
  */
 public class PlayField {
-	
+
     private Field[][] fieldMatrix;
+    private String fieldNumber;
+    private int fieldFigure;
+    String letter;
+    private String alphabet = "abcdefghijklmnopqrstuvwxyz";
 //    String alphabet = "#abcdefghijklmnopqrstuvwxyz";
 //    String figures = "1";
-    
-  //Aufbau des Felds
+
+    //Aufbau des Felds
     public PlayField() {
         this.fieldMatrix = new Field[16][16];
+        int z = -1;
         for (int i = 0; i < fieldMatrix.length; i++) {
-            for (int j = 0; j < fieldMatrix[i].length; j++) {
-                fieldMatrix[i][j] = new Field();
+            if (i >= 1) {
+                
+               letter = alphabet.substring(z, z+1);
+
             }
+            for (int j = 0; j < fieldMatrix[i].length; j++) {
+                if (j >= 1) {
+                fieldNumber = Integer.toString(j)+ letter;
+                fieldMatrix[i][j] = new Field(fieldNumber);
+                    
+                }
+                fieldMatrix[i][j] = new Field();
+                
+            }
+            z++;
         }
+    }
+
+    public String getFieldNumber() {
+        return fieldNumber;
     }
 
     public Field[][] getPlayField() {
         return fieldMatrix;
+    }
+
+    public void setFieldNumber(String fieldNumber) {
+        this.fieldNumber = fieldNumber;
     }
 
     public void setField(Field[][] playField) {
@@ -44,18 +69,11 @@ public class PlayField {
 
         }
     }
-    
-  //Wie sieht das PlayField aus
 
+  //Wie sieht das PlayField aus
     public void printPlayField() {
         for (int i = 0; i < fieldMatrix.length; i++) {
-            if (i  < fieldMatrix.length) {
-//                fieldMatrix[i][0].setStatus((alphabet.charAt(i)));
-            }
             for (int j = 0; j < fieldMatrix[i].length; j++) {
-                if (j + 1 < fieldMatrix.length) {
-//                    fieldMatrix[0][j + 1].setStatus((char)(48+j));
-                }
                 fieldMatrix[i][j].print();
             }
             IO.println("");
@@ -63,7 +81,6 @@ public class PlayField {
     }
 
   //Wie sieht das OpponentField aus
-    
     public void printOpponentField() {
         for (int i = 0; i < fieldMatrix.length; i++) {
             for (int j = 0; j < fieldMatrix[i].length; j++) {

@@ -17,25 +17,30 @@ public class Field {
 	private boolean active;
 	// Im Status stehen die Symbole
 	private String status;
-    private String number;
-	int nextFigure = 0;
-    String nextChar = "abcdefghijklmnopqrstuvwxyz";
+        private String fieldnumber;
 	
         
         /**
 	 * Konstruktor
 	 */
     
-	public Field(){
-		
+	public Field(String fieldNumber){
+		this.fieldnumber = fieldNumber;
 		this.isShot = false;
 		this.isWater = true;
 		this.isHit = false;
 		this.hasShip = false;
-        this.active = true;
+                this.active = true;
 		this.status = "~";
-        this.nextFigure++;
 	}
+        public Field() {
+		this.isShot = false;
+		this.isWater = true;
+		this.isHit = false;
+		this.hasShip = false;
+                this.active = true;
+		this.status = "~";
+        }
 	
 	public boolean isActive() {
         return this.active;
@@ -119,6 +124,7 @@ public class Field {
 	 */
 	public void print(){
 		IO.print(this.status + "  ");
+                IO.print(fieldnumber);
 	}
 	
 	
