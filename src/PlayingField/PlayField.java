@@ -10,8 +10,8 @@ import IO.IO;
 public class PlayField {
 
     private Field[][] fieldMatrix;
-    String alphabet = "#abcdefghijklmnopqrstuvwxyz";
-    String figures = "1";
+//    String alphabet = "#abcdefghijklmnopqrstuvwxyz";
+//    String figures = "1";
     
 
     public PlayField() {

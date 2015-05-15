@@ -131,7 +131,7 @@ public abstract class Ship {
                 try {
                     //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
                     //gibt die ganze Methode "false zurück".
-                    if (!playfield.getPlayField()[x][y + i].isActive()) {
+                    if (!playfield.getPlayField()[y][x + i].isActive()) {
                         System.out.println(" Sorry geht nicht");
                         return false;
                     }
@@ -143,13 +143,13 @@ public abstract class Ship {
             }
             // Setze Schiff
             for (int i = 0; i < getSize(); i++) {
-                playfield.getPlayField()[x][y + i].setStatus(this.getSign());
+                playfield.getPlayField()[y][x + i].setStatus(this.getSign());
 
             }
 
 //             Deaktiviere Felder um das Schiff herum
-            for (int i = (y - 1); i <= getSize() + y; i++) {
-                for (int j = (x - 1); j < x + 2; j++) {
+            for (int i = (x - 1); i <= getSize() + x; i++) {
+                for (int j = (y - 1); j < y + 2; j++) {
                     try {
                         playfield.getPlayField()[j][i].setActive(false);
                         //Tetstweise eingebaut um zu sehen welche Felder deaktiviert werden
@@ -167,7 +167,7 @@ public abstract class Ship {
                 try {
                     //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
                     //gibt die ganze Methode "false zurück".
-                    if (!playfield.getPlayField()[x + i][y].isActive()) {
+                    if (!playfield.getPlayField()[y + i][x].isActive()) {
                         System.out.println(" Sorry geht nicht");
                         return false;
                     }
@@ -179,12 +179,12 @@ public abstract class Ship {
             }
             // Setze Schiff
             for (int i = 0; i < getSize(); i++) {
-                playfield.getPlayField()[x + i][y].setStatus(this.getSign());
+                playfield.getPlayField()[y + i][x].setStatus(this.getSign());
             }
 
             // Deaktiviere Felder um das Schiff herum
-            for (int i = (x - 1); i <= getSize() + x; i++) {
-                for (int j = (y - 1); j < y + 2; j++) {
+            for (int i = (y - 1); i <= getSize() + y; i++) {
+                for (int j = (x - 1); j < x + 2; j++) {
                     try {
                         playfield.getPlayField()[i][j].setActive(false);
                         //Tetstweise eingebaut um zu sehen welche Felder deaktiviert werden
