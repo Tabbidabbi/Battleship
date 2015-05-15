@@ -10,29 +10,21 @@ import IO.IO;
 public class Field {
 	
 	//Flags
-	private boolean isShot;  //O char 79
+	private boolean isShot;  //O 
 	private boolean isWater;  //~
-	private boolean isHit;   //X char 88
+	private boolean isHit;   //X 
 	private boolean hasShip;
 	private boolean active;
 	// Im Status stehen die Symbole
 	private String status;
         private String fieldnumber;
+        
 	
         
         /**
 	 * Konstruktor
 	 */
     
-	public Field(String fieldNumber){
-		this.fieldnumber = fieldNumber;
-		this.isShot = false;
-		this.isWater = true;
-		this.isHit = false;
-		this.hasShip = false;
-                this.active = true;
-		this.status = "~";
-	}
         public Field() {
 		this.isShot = false;
 		this.isWater = true;
@@ -41,8 +33,17 @@ public class Field {
                 this.active = true;
 		this.status = "~";
         }
-	
-	public boolean isActive() {
+
+    public String getFieldnumber() {
+        return fieldnumber;
+    }
+
+    public void setFieldnumber(String fieldnumber) {
+        this.fieldnumber = fieldnumber;
+    }
+
+	 
+	public boolean getIsActive() {
         return this.active;
     }
 
@@ -123,7 +124,7 @@ public class Field {
 	 * Methode zum Ausgeben des aktuellen Status
 	 */
 	public void print(){
-		IO.print(this.status + "    ");
+		IO.print(this.status + "\t");
 //		IO.print(fieldnumber);
 	}
 	

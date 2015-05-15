@@ -12,7 +12,7 @@ import IO.IO;
 public class Battleship {
 
     public static void main(String[] args) {
-        int input = 0;
+        String input;
         int shipX;//x-koodinate
         int shipY;//y-koordinate
         boolean shipO;// Ausrichtung des Schiffes (h,v)
@@ -42,13 +42,15 @@ public class Battleship {
                     + "1 Zerstörer, 1 Fregatte, 2 Corvetten und 2 U-Boote." + "\n");
             ships = player[i].getShips();
             for (int s = 0; s < ships.length;) {
+                IO.print("Bitte geben Sie die Koordinaten für " + ships[s].getName() + " ein:");
+                input = IO.readString();
                 IO.print("Bitte geben Sie die X-Koordinate für " + ships[s].getName() + " ein:");
                 shipX = IO.readInt();
                 IO.print("Bitte geben Sie die Y-Koordinate für " + ships[s].getName() + " ein:");
                 shipY = IO.readInt();
                 //IO.print("Bitte geben Sie die Ausrichtung des Schiffes an (h = horizontal, v = vertical: ");
                 shipO = setOrientation();
-                if (!ships[s].placeShip(shipX, shipY, shipO, player[i].getField())) {
+                if (!ships[s].placeShip(input,shipO, player[i].getField())) {
                     IO.println("Das Schiff konnte nicht gesetzt werden. Bitte erneut versuchen.");
                 } else {
                     s++;
