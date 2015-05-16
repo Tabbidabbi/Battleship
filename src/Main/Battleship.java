@@ -78,21 +78,23 @@ public class Battleship {
                     //Runde des Spielers pla
                     for (int pla = 0; pla < player.length; pla++) {
                         IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
-
+                    	
+                        player[pla].getField().printPlayField();
                         //1. Auswahl eines verf�gbaren Schiffes. (Methode hierf�r schreiben)
                         IO.println("Mit welchem Schiff willst du schiessen?");
                         for (int shi = 0; shi < player[pla].getShips().length; shi++) {
                             IO.println("Nummer: " + player[pla].getShips()[shi].getNumber() + " Typ: " + player[pla].getShips()[shi].getName());
                         }
+                        
                         printListOfShips(player, pla);
 
-                        //Eingabe, welches Schiff schie�en soll
+                        //Eingabe, welches Schiff schiessen soll
                         IO.println("Gebe die Nummer des Schiffs ein: ");
 
                         //Einlesen des Schiffs
                         int ship = IO.readInt();
 
-                        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[pla].getShips()[ship - 1].getName() + " ausgew�hlt!");
+                        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[pla].getShips()[ship - 1].getName() + " ausgewaehlt!");
 
                         //F�r Shiffs-Array
                         ship = ship - 1;
@@ -107,22 +109,11 @@ public class Battleship {
                             orientation = setOrientation();
                         }
 
-                        //2. Auswahl eines Gegners. (Methode hierf�r schreiben)
-                        //Abfrage, welcher Spieler angegriffen werden soll
-                        IO.println("Welchen Spieler moechtest du angreifen?");
-
-                        //Gibt die Liste aller Spieler aus, die angegriffen werden koennen
-                        printListOfOpponents(player, pla);
-
-                        IO.print("Geben Sie die Nummer des Gegners ein: ");
-
-                        //Einlesen des SPielers, den man angreifen will
-                        int opponent = IO.readInt();
-                        //Wert fuer Array, denn Array faengt bei 0 an zu zaehlen
-                        opponent = opponent - 1;
-
+                        //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
+                        int opponent = getNumberOfOpponent(player, pla);
+                               
                         //Gibt das Spielfeld des Gegners aus
-                        player[opponent].getField().printOpponentField();
+                        player[opponent].getOpponentField().printOpponentField();
 
                         //3. Koordinate auf dem Spielfeld ausw�hlen. (Methode hierf�r schreiben)
                         //Abfrage
@@ -206,7 +197,6 @@ public class Battleship {
         	player[opponent].getShips()[i].setHitpoints();
         }        
         
-        
         //Gibt das Feld des Gegner aus
         player[opponent].getOpponentField().printOpponentField();
     }
@@ -271,7 +261,7 @@ public class Battleship {
     public static void printListOfShips(Player[] player, int playerN) {
         for (int s = 0; s < player[playerN].getShips().length; s++) {
             if (player[playerN].getShips()[s].getHitpoints() != 0) {
-                if (player[playerN].getShips()[s].getReloadTime() == 0) {
+                if (player[playerN].getShips()[s].getCurrentReloadTime() == 0) {
                     IO.println("Nummer: " + player[playerN].getShips()[s].getNumber() + " Typ: " + player[playerN].getShips()[s].getName());
 
                 }
@@ -325,7 +315,7 @@ public class Battleship {
     	boolean error = false;
         IO.print("Bitte geben Sie die Koordinaten fuer das Schiessen ein:");
         do {
-            koordinate = IO.readString().toLowerCase(); //Großbuchstaben-> Kleinbuchstaben
+            koordinate = IO.readString().toLowerCase(); //Grossbuchstaben-> Kleinbuchstaben
             if (koordinate.matches("^[1-9]{1}[0-9]{0,1}[a-z]{1}$")) { //Teste Eingabe mit RegEx(^ Anfang, 1 oder 2 Zahlen(0-9) & 1 Buchstabe (a-z), $ Ende
                 error = false;
             } else {
@@ -334,6 +324,23 @@ public class Battleship {
             }
         } while (error);
         return koordinate;
+    }
+    
+    /**
+     * 
+     * @param player Spielerarray
+     * @param playerN Spielernummer
+     * @return
+     */
+    public static int getNumberOfOpponent(Player[] player, int playerN){
+    	//Abfrage, welcher Spieler angegriffen werden soll
+        IO.println("Welchen Spieler moechtest du angreifen?");
+        //Gibt die Liste aller Spieler aus, die angegriffen werden koennen
+        printListOfOpponents(player, playerN);
+        IO.print("Geben Sie die Nummer des Gegners ein: ");
+        //Einlesen des SPielers, den man angreifen will
+        int opponent = IO.readInt() -1;
+        return opponent;    	
     }
 
 }

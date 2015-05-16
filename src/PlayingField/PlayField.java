@@ -135,11 +135,27 @@ public class PlayField {
 
     //Wie sieht das OpponentField aus
     public void printOpponentField() {
-        for (int i = 0; i < fieldMatrix.length; i++) {
+        /*for (int i = 0; i < fieldMatrix.length; i++) {
             for (int j = 0; j < fieldMatrix[i].length; j++) {
                 fieldMatrix[i][j].printForOpponent();
             }
             IO.println("");
-        }
+        }*/
+    	for (int i = 0; i < fieldMatrix.length; i++) {
+    	    //Das Array wird auf der Position [0][0] vertikal mit Zahlen gefüllt2
+    		if (i + 1 < fieldMatrix.length) {
+    	    	fieldMatrix[i + 1][0].setStatus(Integer.toString(i+1));
+    	    	fieldMatrix[i][0].setActive(false);
+    		}
+    		for (int j = 0; j < fieldMatrix[i].length; j++) {
+    	    //Das Array wird auf der Position [0][0] horizontal mit Buchstaben gefüllt
+    	    	if (j < fieldMatrix[i].length) {
+    	        	fieldMatrix[0][j].setStatus(Character.toString(alphabet.charAt(j)));
+    	        	fieldMatrix[0][j].setActive(false);
+    	    	}
+    	    	fieldMatrix[i][j].print();
+    		}
+    		IO.println("");
+    	}
     }
 }
