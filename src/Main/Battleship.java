@@ -78,14 +78,10 @@ public class Battleship {
                     //Runde des Spielers pla
                     for (int pla = 0; pla < player.length; pla++) {
                         IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
-                    	
-                        player[pla].getField().printPlayField();
-                        //1. Auswahl eines verf�gbaren Schiffes. (Methode hierf�r schreiben)
-                        IO.println("Mit welchem Schiff willst du schiessen?");
-                        for (int shi = 0; shi < player[pla].getShips().length; shi++) {
-                            IO.println("Nummer: " + player[pla].getShips()[shi].getNumber() + " Typ: " + player[pla].getShips()[shi].getName());
-                        }
+                    	player[pla].getField().printPlayField();
                         
+                        //1. Auswahl eines verfuegbaren Schiffes. (Methode hierf�r schreiben)
+                        IO.println("Mit welchem Schiff willst du schiessen?");                        
                         printListOfShips(player, pla);
 
                         //Eingabe, welches Schiff schiessen soll
@@ -93,16 +89,12 @@ public class Battleship {
 
                         //Einlesen des Schiffs
                         int ship = IO.readInt();
-
                         IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[pla].getShips()[ship - 1].getName() + " ausgewaehlt!");
-
                         //F�r Shiffs-Array
                         ship = ship - 1;
-
                         //Reichweite des Schusses, um diese der Methode setShot zu uebergeben
                         int shootRange = player[pl].getShips()[ship].getShootRange();
-
-                        //Hierf𲠮och ne Methode schreiben
+                        
                         //Hierfuer noch eine Methode schreiben
                         boolean orientation = false;
                         if (shootRange > 1) {
@@ -111,7 +103,6 @@ public class Battleship {
 
                         //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
                         int opponent = getNumberOfOpponent(player, pla);
-                               
                         //Gibt das Spielfeld des Gegners aus
                         player[opponent].getOpponentField().printOpponentField();
 
@@ -192,9 +183,14 @@ public class Battleship {
         hitShips = player[opponent].getField().setShot(koordinate, shootRange, orientation);
         player[opponent].getOpponentField().setShot(koordinate, shootRange, orientation);
 
-        //Pr�fen ob schiffe getroffen
+        //Pruefen ob schiffe getroffen
         for(int i = 0; i < hitShips.length; i++){
-        	player[opponent].getShips()[i].setHitpoints();
+        	for(int s = 0; s < player[opponent].getShips().length; s++){
+        		if(player[opponent].getShips()[s].getNumber() == hitShips[i]){
+        			player[opponent].getShips()[s].setHitpoints();
+        		}
+        	}
+        	
         }        
         
         //Gibt das Feld des Gegner aus
