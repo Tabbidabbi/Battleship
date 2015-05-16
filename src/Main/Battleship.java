@@ -114,7 +114,7 @@ public class Battleship {
                         //Hierfuer noch eine Methode schreiben
                         boolean orientation = false;
                         if (shootRange > 1) {
-                            orientation = setOrientation();
+                            orientation = setShootOrientation();
                         }
 
                         //2. Auswahl eines Gegners. (Methode hierf�r schreiben)
@@ -225,15 +225,42 @@ public class Battleship {
      */
     public static boolean setOrientation() {
         boolean orientation = false;
-        IO.print("Bitte geben Sie die Ausrichtung des Schiffes an (h = horizontal, v = vertical: ");
-        String o = IO.readString();
-        if (o.equals("h")) {
-            orientation = true;
-        } else if (o.equals("v")) {
-            orientation = false;
-        } else {
-            setOrientation();
-        }
+        boolean error = false;
+        do {
+            IO.print("Bitte geben Sie die Ausrichtung des Schiffes an (h = horizontal, v = vertical: ");
+            String o = IO.readString();
+            if (o.equals("h")) {
+                error = false;
+                orientation = true;
+            } else if (o.equals("v")) {
+                error = false;
+                orientation = true;
+            } else {
+                IO.println("Falsche Eingabe, bitte wiederholen Sie die Eingabe!");
+                error = true;
+            }
+        } while (error);
+
+        return orientation;
+    }
+
+    public static boolean setShootOrientation() {
+        boolean orientation = false;
+        boolean error = false;
+        do {
+            IO.print("Bitte geben Sie die Ausrichtung des Schusses an (h = horizontal, v = vertical: ");
+            String o = IO.readString();
+            if (o.equals("h")) {
+                error = false;
+                orientation = true;
+            } else if (o.equals("v")) {
+                error = false;
+                orientation = true;
+            } else {
+                IO.println("Falsche Eingabe, bitte wiederholen Sie die Eingabe!");
+                error = true;
+            }
+        } while (error);
 
         return orientation;
     }
