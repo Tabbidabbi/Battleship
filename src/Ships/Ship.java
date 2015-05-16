@@ -2,6 +2,7 @@ package Ships;
 
 import PlayingField.PlayField;
 import PlayingField.Field;
+import IO.IO;
 
 public abstract class Ship {
 
@@ -110,7 +111,11 @@ public abstract class Ship {
     }
 
     public void setHitpoints() {
-        this.hitpoints = this.hitpoints - 1;
+    	this.hitpoints = this.hitpoints - 1;
+    	if(getHitpoints() == 0){
+    		setSunk(true);
+    		IO.println("Schiff wurde versenkt.");
+    	}
     }
 
     public void setName(String name) {
@@ -150,6 +155,9 @@ public abstract class Ship {
 
                         for (int i = 0; i < getSize(); i++) {
                             playfield.getPlayField()[y][x + i].setStatus(this.getSign());
+                            playfield.getPlayField()[y][x + i].setWater(false);
+                            playfield.getPlayField()[y][x + i].setHasShip(true);
+                            playfield.getPlayField()[y][x + i].setShipNumber(getNumber());
 
                         }
 
@@ -191,6 +199,9 @@ public abstract class Ship {
                         // Setze Schiff
                         for (int i = 0; i < getSize(); i++) {
                             playfield.getPlayField()[y + i][x].setStatus(this.getSign());
+                            playfield.getPlayField()[y + i][x].setWater(false);
+                            playfield.getPlayField()[y + i][x].setHasShip(true);
+                            playfield.getPlayField()[y + i][x].setShipNumber(getNumber());
                         }
 
                         // Deaktiviere Felder um das Schiff herum

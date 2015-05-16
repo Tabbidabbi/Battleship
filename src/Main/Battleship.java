@@ -36,12 +36,12 @@ public class Battleship {
             String name = IO.readString();
             player[i] = new Player(i + 1, name);
 
-            IO.print("Spieler " + player[i].getName() + " , " + "Sie können nun " + player[i].getShips().length + " Schiffe setzen: " + "\n"
-                    + "1 Zerstörer, 1 Fregatte, 2 Corvetten und 2 U-Boote." + "\n");
+            IO.print("Spieler " + player[i].getName() + " , " + "Sie koennen nun " + player[i].getShips().length + " Schiffe setzen: " + "\n"
+                    + "1 Zerstoerer, 1 Fregatte, 2 Corvetten und 2 U-Boote." + "\n");
             ships = player[i].getShips();
             for (int s = 0; s < ships.length;) {
                 error = false;
-                IO.print("Bitte geben Sie die Koordinaten für " + ships[s].getName() + " ein:");
+                IO.print("Bitte geben Sie die Koordinaten fuer " + ships[s].getName() + " ein:");
                 do {
                     input = IO.readString().toLowerCase(); //Großbuchstaben-> Kleinbuchstaben
                     if (input.matches("^[1-9]{1}[0-9]{0,1}[a-z]{1}$")) { //Teste Eingabe mit RegEx(^ Anfang, 1 oder 2 Zahlen(0-9) & 1 Buchstabe (a-z), $ Ende
@@ -64,8 +64,7 @@ public class Battleship {
 
         //Runde beginnt
         //solange es mehr als einen spieler gibt
-        while (player.length
-                < 1) {
+        while (checkAmountOfAvailablePlayers(player) > 1) {
             for (int pl = 0; pl < player.length; pl++) {
 
                 //Spieler, die verloren haben, kommen nicht mehr an die Reihe
@@ -81,7 +80,7 @@ public class Battleship {
                         IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
 
                         //1. Auswahl eines verf�gbaren Schiffes. (Methode hierf�r schreiben)
-                        IO.println("Mit welchem Schiff willst du schie�en?");
+                        IO.println("Mit welchem Schiff willst du schiessen?");
                         for (int shi = 0; shi < player[pla].getShips().length; shi++) {
                             IO.println("Nummer: " + player[pla].getShips()[shi].getNumber() + " Typ: " + player[pla].getShips()[shi].getName());
                         }
@@ -110,7 +109,7 @@ public class Battleship {
 
                         //2. Auswahl eines Gegners. (Methode hierf�r schreiben)
                         //Abfrage, welcher Spieler angegriffen werden soll
-                        IO.println("Welchen Spieler m�chtest du angreifen?");
+                        IO.println("Welchen Spieler moechtest du angreifen?");
 
                         //Gibt die Liste aller Spieler aus, die angegriffen werden koennen
                         printListOfOpponents(player, pla);
@@ -127,39 +126,48 @@ public class Battleship {
 
                         //3. Koordinate auf dem Spielfeld ausw�hlen. (Methode hierf�r schreiben)
                         //Abfrage
-                        IO.println("Wo soll das Schiff hinschie�en?");
+                        String koordinate = getKoordinatesToShoot();
+                        //IO.println("Wo soll das Schiff hinschiessen?");
                         //Einlesen X-Koordinate
-                        IO.print("X = ");
-                        int x = IO.readInt();
+                        //IO.print("X = ");
+                        //int x = IO.readInt();
                         //Einlesen Y-Koordinate
-                        IO.print("Y = ");
-                        int y = IO.readInt();
+                        //IO.print("Y = ");
+                        //int y = IO.readInt();
 
-                        //Schie�en
-                        shootOnPlayField(player, opponent, shootRange, orientation, x, y);
+                        //Schiessen
+                        //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
+                        //shootOnPlayField(player, opponent, shootRange, orientation, x, y);
+                        shootOnPlayField(player, opponent, shootRange, orientation, koordinate);
 
                         //Nachladezeit nach Schuss setzen, damit das Schiff erst nachladen muss,
-                        //um wieder schie�en zu koennen
+                        //um wieder schiessen zu koennen
                         player[pla].getShips()[ship].setCurrentReloadTime();
-
-                        //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
-                        if (player[pla].getIsLost() == true) {
+                        
+                        if(checkIfShipAvailable(player, opponent) == false){
+                        	player[opponent].setLost(true);
+                        }
+                        
+                        if (player[opponent].getIsLost() == true) {
                             //Spieler player[pla] aus dem Spieler-Array nehmen
+                        	IO.println(player[opponent].getName() + " hat verloren!");
                         }
                     }
                 }
                 //Setzt pl auf 0, damit die Runde vorn beginnt
-                if (pl == player.length) {
+                if (pl + 1 == player.length) {
                     pl = 0;
 
                 }
 
             }
         }
+        //Ausgabe des Speilers der gewonnen hat
+        
     }
 
 
-    /*
+    /**
      * @param player Spielerarray
      * @param opponent Integerwert des Gegners f�r das Finden im Array
      * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
@@ -168,11 +176,37 @@ public class Battleship {
      * @param y Korrdinate des Fieldes
      */
     public static void shootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, int x, int y) {
-        //Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
-        player[opponent].getField().setShot(x, y, shootRange, orientation);
+        int[] hitShips;
+    	
+    	//Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
+        hitShips = player[opponent].getField().setShot(x, y, shootRange, orientation);
         player[opponent].getOpponentField().setShot(x, y, shootRange, orientation);
 
         //Pr�fen ob schiffe getroffen
+        for(int i = 0; i < hitShips.length; i++){
+        	player[opponent].getShips()[i].setHitpoints();
+        }        
+        
+        
+        //Gibt das Feld des Gegner aus
+        player[opponent].getOpponentField().printOpponentField();
+    }
+    
+    public static void shootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, String koordinate) {
+        int[] hitShips;
+    	
+    	//Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
+        //hitShips = player[opponent].getField().setShot(x, y, shootRange, orientation);
+        //player[opponent].getOpponentField().setShot(x, y, shootRange, orientation);
+        hitShips = player[opponent].getField().setShot(koordinate, shootRange, orientation);
+        player[opponent].getOpponentField().setShot(koordinate, shootRange, orientation);
+
+        //Pr�fen ob schiffe getroffen
+        for(int i = 0; i < hitShips.length; i++){
+        	player[opponent].getShips()[i].setHitpoints();
+        }        
+        
+        
         //Gibt das Feld des Gegner aus
         player[opponent].getOpponentField().printOpponentField();
     }
@@ -243,6 +277,63 @@ public class Battleship {
                 }
             }
         }
+    }
+    
+    /**
+     * Prueft, ob Spieler mindestens ein Schiff hat.
+     * 
+     * @param player Spielerarray
+     * @param opponent Nummer des gegnerischen Spielers
+     * @return Booleanwert, ob Schiff vorhanden ist
+     */
+    public static boolean checkIfShipAvailable(Player[] player, int opponent){
+    	boolean result = false;
+    	for(int i = 0; i < player[opponent].getShips().length; i++){
+    		if(player[opponent].getShips()[i].getIsSunk() == false){
+    			result = true;
+    		}
+    	}    	
+    	return result;
+    }
+    
+    /**
+     * 
+     * @param player
+     * @return
+     */
+    public static int checkAmountOfAvailablePlayers(Player[] player){
+    	int result = 0;
+    	for(int i = 0; i < player.length; i++){
+    		if(player[i].getIsLost() == false){
+    			result++;
+    		}
+    	}    	
+    	return result;
+    	
+    }
+    
+    public static void printWinner(Player[] player){
+    	for(int i = 0; i < player.length; i++){
+    		if(player[i].getIsLost() == false){
+    			IO.println("Spieler " + player[i].getName() + " hat gewonnen!");
+    		}
+    	} 
+    }
+    
+    public static String getKoordinatesToShoot(){
+    	String koordinate;
+    	boolean error = false;
+        IO.print("Bitte geben Sie die Koordinaten fuer das Schiessen ein:");
+        do {
+            koordinate = IO.readString().toLowerCase(); //Großbuchstaben-> Kleinbuchstaben
+            if (koordinate.matches("^[1-9]{1}[0-9]{0,1}[a-z]{1}$")) { //Teste Eingabe mit RegEx(^ Anfang, 1 oder 2 Zahlen(0-9) & 1 Buchstabe (a-z), $ Ende
+                error = false;
+            } else {
+                IO.println("Fehler");
+                error = true;
+            }
+        } while (error);
+        return koordinate;
     }
 
 }

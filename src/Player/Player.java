@@ -32,7 +32,7 @@ public class Player {
         this.name = name;
 
 		//Schiffs-Array mit Schiffen f�llen
-        //1 Zerst�rer
+        //1 Zerstoerer
         //1 Fregatte
         //2 Korvetten
         //2 U-Boote

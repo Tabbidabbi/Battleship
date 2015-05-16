@@ -59,19 +59,58 @@ public class PlayField {
     public void setField(Field[][] playField) {
         this.fieldMatrix = playField;
     }
-
-    public void setShot(int x, int y, int shootRange, boolean orientation) {
+    
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param shootRange
+     * @param orientation
+     * @return
+     */
+    public int[] setShot(int x, int y, int shootRange, boolean orientation) {
+    	//Array, in dem  die getroffenen Schiffe stehen
+    	int[] hitShips = new int[shootRange];
         if (orientation == true) {
             for (int i = 0; i < shootRange; i++) {
-                this.fieldMatrix[x + i][y].setIsShot();
+            	hitShips[i] = this.fieldMatrix[y][x + i].setIsShot();
             }
         } else {
             for (int i = 0; i < shootRange; i++) {
-                this.fieldMatrix[x][y + i].setIsShot();
+            	hitShips[i] =  this.fieldMatrix[y + i][x].setIsShot();
 
             }
 
         }
+        return hitShips;
+    }
+    
+    public int[] setShot(String koordinate, int shootRange, boolean orientation) {
+    	//Array, in dem  die getroffenen Schiffe stehen
+    	int[] hitShips = new int[shootRange];
+        if (orientation == true) {
+            for(int y = 0; y < getPlayField().length; y++){
+            	for(int x = 0; x < getPlayField()[y].length; x++){
+            		if(koordinate.equals(getPlayField()[y][x].getFieldnumber())){
+            			for (int i = 0; i < shootRange; i++) {
+            				hitShips[i] = this.fieldMatrix[y][x + i].setIsShot();                       	
+                        }
+            		}
+            	}
+            }
+        	
+        } else {
+        	for(int y = 0; y < getPlayField().length; y++){
+            	for(int x = 0; x < getPlayField()[y].length; x++){
+            		if(koordinate.equals(getPlayField()[y][x].getFieldnumber())){
+            			for (int i = 0; i < shootRange; i++) {
+            				hitShips[i] = this.fieldMatrix[y + i][x].setIsShot();                      	
+                        }
+            		}
+            	}
+            }
+        }
+        return hitShips;
     }
 
     //Wie sieht das PlayField aus
@@ -98,7 +137,7 @@ public class PlayField {
     public void printOpponentField() {
         for (int i = 0; i < fieldMatrix.length; i++) {
             for (int j = 0; j < fieldMatrix[i].length; j++) {
-                fieldMatrix[i][j].print();
+                fieldMatrix[i][j].printForOpponent();
             }
             IO.println("");
         }
