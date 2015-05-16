@@ -127,7 +127,6 @@ public abstract class Ship {
 
         //true = horizontal
         if (orientation == true) {
-//             Testen ob Schiff komplett gezeichnet werden kann
             for (int y = 0; y < playfield.getPlayField().length; y++) {
                 for (int x = 0; x < playfield.getPlayField()[y].length; x++) {
                     if (input.equals(playfield.getPlayField()[y][x].getFieldnumber())) {
