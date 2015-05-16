@@ -59,19 +59,30 @@ public class PlayField {
     public void setField(Field[][] playField) {
         this.fieldMatrix = playField;
     }
-
-    public void setShot(int x, int y, int shootRange, boolean orientation) {
+    
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param shootRange
+     * @param orientation
+     * @return
+     */
+    public int[] setShot(int x, int y, int shootRange, boolean orientation) {
+    	//Array, in dem  die getroffenen Schiffe stehen
+    	int[] hitShips = new int[shootRange];
         if (orientation == true) {
             for (int i = 0; i < shootRange; i++) {
-                this.fieldMatrix[x + i][y].setIsShot();
+            	hitShips[i] = this.fieldMatrix[y][x + i].setIsShot();
             }
         } else {
             for (int i = 0; i < shootRange; i++) {
-                this.fieldMatrix[x][y + i].setIsShot();
+            	hitShips[i] =  this.fieldMatrix[y + i][x].setIsShot();
 
             }
 
         }
+        return hitShips;
     }
 
     //Wie sieht das PlayField aus

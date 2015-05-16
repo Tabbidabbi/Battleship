@@ -2,6 +2,7 @@ package Ships;
 
 import PlayingField.PlayField;
 import PlayingField.Field;
+import IO.IO;
 
 public abstract class Ship {
 
@@ -110,7 +111,11 @@ public abstract class Ship {
     }
 
     public void setHitpoints() {
-        this.hitpoints = this.hitpoints - 1;
+    	this.hitpoints = this.hitpoints - 1;
+    	if(getHitpoints() == 0){
+    		setSunk(true);
+    		IO.println("Schiff wurde versenkt.");
+    	}
     }
 
     public void setName(String name) {
