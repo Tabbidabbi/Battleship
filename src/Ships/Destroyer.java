@@ -9,12 +9,12 @@ package Ships;
  */
 public class Destroyer extends Ship {
 
-	String name = "ZerstГ¶rer";
+	String name = "Zerstoerer";
 	
 	//Zerstörer positionieren
 	
 	public Destroyer(int number) {
-		super("Z", 5, false, number, false, 3, 0, 3, "ZerstГ¶rer");
+		super("Z", 5, false, number, false, 3, 0, 3, "Zerstoerer");
 		// TODO Auto-generated constructor stub
 	}
 
