@@ -24,6 +24,8 @@ public class Player {
 
     /**
    	 * Konstruktor
+     * @param number
+     * @param name
    	 */
     
     public Player(int number, String name) {
