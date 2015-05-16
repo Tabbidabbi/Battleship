@@ -17,7 +17,7 @@ public class PlayField {
     private final String alphabet = "#abcdefghijklmnopqrstuvwxyz";
     int zI = 0;
     int zJ;
-    String convertedInt;
+    String convertInString;
     //Aufbau des Felds.
 //    Jedes Feld bekommt eine Nummerierung
     public PlayField() {
@@ -25,7 +25,7 @@ public class PlayField {
 //        Hier wird jeder Zeile ein Buchstabe aus dem alphabet String hinzugefügt bis die Länge des Arrays erreicht wurde
         for (int i = 0; i < fieldMatrix.length; i++) {
             if (i >= 1 && zI <= fieldMatrix.length) {
-                    convertedInt = Integer.toString(zI);//in der Variable wird der vorher in String konvertierte int gespeichert.
+                    convertInString = Integer.toString(zI);//in der Variable wird der vorher in String konvertierte int gespeichert.
             }
             zJ = 0;//Zähler für die Spalten wird resetet
 //        Hier wird jeder Spalte eine Zahl  hinzugefügt bis die Länge des Arrays erreicht wurde
