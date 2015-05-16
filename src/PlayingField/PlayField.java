@@ -137,7 +137,7 @@ public class PlayField {
     public void printOpponentField() {
         for (int i = 0; i < fieldMatrix.length; i++) {
             for (int j = 0; j < fieldMatrix[i].length; j++) {
-                fieldMatrix[i][j].print();
+                fieldMatrix[i][j].printForOpponent();
             }
             IO.println("");
         }
