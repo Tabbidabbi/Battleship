@@ -284,7 +284,7 @@ public class Battleship {
      */
     public static void printListOfShips(Player[] player, int playerN) {
         for (int s = 0; s < player[playerN].getShips().length; s++) {
-            if (player[playerN].getShips()[s].getHitpoints() != 0) {
+            if (player[playerN].getShips()[s].getIsSunk() == false) {
                 if (player[playerN].getShips()[s].getCurrentReloadTime() == 0) {
                     IO.println("Nummer: " + player[playerN].getShips()[s].getNumber() + " Typ: " + player[playerN].getShips()[s].getName());
 
@@ -378,9 +378,9 @@ public class Battleship {
         do{
         	ship = IO.readInt();
         	if(player[playerN].getShips()[ship-1].getCurrentReloadTime() == 0){
-        		error = true;
+        		error = false;
         	}else{
-        		
+        		error = true;
         	}  
         }while(error);
         //F�r Shiffs-Array
