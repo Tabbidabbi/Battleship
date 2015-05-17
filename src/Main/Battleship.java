@@ -82,7 +82,9 @@ public class Battleship {
 
                     //Setzt die Nachladezeit aller Schiffe in jeder Runde um 1 runter
                     for (int sh = 0; sh < player[pl].getShips().length; sh++) {
-                        player[pl].getShips()[sh].setDownReloadTime();
+                        if(player[pl].getShips()[sh].getCurrentReloadTime() > 1){
+                        	player[pl].getShips()[sh].setDownReloadTime();
+                        }                    	
                     }
 
                     //Runde des Spielers pla

@@ -103,7 +103,7 @@ public abstract class Ship {
     }
 
     public void setCurrentReloadTime() {
-        this.currentReloadTime = this.reloadTime;
+        this.currentReloadTime = this.reloadTime + 1;
     }
 
     public void setShootRange(int shootRange) {
