@@ -193,21 +193,6 @@ public class Battleship {
      *
      * @return Integerwert fuer die Richtung
      */
-    public static boolean setOrientation() {
-        boolean orientation = false;
-        IO.print("Bitte geben Sie die Ausrichtung des Schiffes an (h = horizontal, v = vertical: ");
-        String o = IO.readString();
-        if (o.equals("h")) {
-            orientation = true;
-        } else if (o.equals("v")) {
-            orientation = false;
-        } else {
-            setOrientation();
-        }
-
-        return orientation;
-    }
-
     /**
      * Gibt Liste der Spieler aus
      *
