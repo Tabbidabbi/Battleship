@@ -81,17 +81,9 @@ public class Battleship {
                     	player[pla].getField().printPlayField();
                         
                         //1. Auswahl eines verfuegbaren Schiffes. (Methode hierf�r schreiben)
-                        IO.println("Mit welchem Schiff willst du schiessen?");                        
-                        printListOfShips(player, pla);
-
-                        //Eingabe, welches Schiff schiessen soll
-                        IO.println("Gebe die Nummer des Schiffs ein: ");
-
-                        //Einlesen des Schiffs
-                        int ship = IO.readInt();
-                        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[pla].getShips()[ship - 1].getName() + " ausgewaehlt!");
-                        //F�r Shiffs-Array
-                        ship = ship - 1;
+                        
+                        int ship = getAvailableShipToShoot(player, pla);
+                        
                         //Reichweite des Schusses, um diese der Methode setShot zu uebergeben
                         int shootRange = player[pl].getShips()[ship].getShootRange();
                         
@@ -337,6 +329,29 @@ public class Battleship {
         //Einlesen des SPielers, den man angreifen will
         int opponent = IO.readInt() -1;
         return opponent;    	
+    }
+    
+    public static int getAvailableShipToShoot(Player[] player, int playerN){
+    	IO.println("Mit welchem Schiff willst du schiessen?");                        
+        printListOfShips(player, playerN);
+        //Einlesen des Schiffs
+        boolean error = false;
+        int ship;
+        //Eingabe, welches Schiff schiessen soll
+        IO.println("Gebe die Nummer des Schiffs ein: ");
+        do{
+        	ship = IO.readInt();
+        	if(player[playerN].getShips()[ship-1].getCurrentReloadTime() == 0){
+        		error = true;
+        	}else{
+        		
+        	}  
+        }while(error);
+        ship = ship - 1;
+        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
+        //F�r Shiffs-Array
+        
+        return ship;
     }
 
 }

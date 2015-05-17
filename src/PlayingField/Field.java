@@ -88,12 +88,12 @@ public class Field {
 				this.setStatus("X");
 				this.setOpponentStatus("X");
 				this.setHit(true);
-				IO.println("Sie haben ein Schiff getroffen!");
+				//IO.println("Sie haben ein Schiff getroffen!");
 			}
 			else{
 				this.setStatus("O");
 				this.setOpponentStatus("O");
-				IO.println("Sie haben auf Wasser geschossen!");
+				//IO.println("Sie haben auf Wasser geschossen!");
 			}
 		}
 		else{

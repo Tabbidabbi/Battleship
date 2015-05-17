@@ -115,6 +115,7 @@ public class PlayField {
 
     //Wie sieht das PlayField aus
     public void printPlayField() {
+    	IO.println("Dein Feld:");
         for (int i = 0; i < fieldMatrix.length; i++) {
     //Das Array wird auf der Position [0][0] vertikal mit Zahlen gefüllt2
             if (i + 1 < fieldMatrix.length) {
@@ -129,8 +130,9 @@ public class PlayField {
                 }
                 fieldMatrix[i][j].print();
             }
-            IO.println("");
+            IO.println("");            
         }
+        IO.println("");
     }
 
     //Wie sieht das OpponentField aus
@@ -141,6 +143,7 @@ public class PlayField {
             }
             IO.println("");
         }*/
+    	IO.println("Gegnerisches Feld:");
     	for (int i = 0; i < fieldMatrix.length; i++) {
     	    //Das Array wird auf der Position [0][0] vertikal mit Zahlen gefüllt2
     		if (i + 1 < fieldMatrix.length) {
@@ -157,5 +160,6 @@ public class PlayField {
     		}
     		IO.println("");
     	}
+    	IO.println("");
     }
 }
