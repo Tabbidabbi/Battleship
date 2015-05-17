@@ -131,6 +131,7 @@ public class PlayField {
             }
             IO.println("");
         }
+        IO.println("");
     }
 
     //Wie sieht das OpponentField aus
@@ -149,5 +150,6 @@ public class PlayField {
             }
             IO.println("");
         }
+        IO.println("");
     }
 }
