@@ -115,6 +115,8 @@ public abstract class Ship {
     	if(getHitpoints() == 0){
     		setSunk(true);
     		IO.println("Schiff wurde versenkt.");
+    		//test
+    		IO.println(getNumber()+ " " + getNumber() + " " + getHitpoints() + " " + getIsSunk());
     	}
     }
 

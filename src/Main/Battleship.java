@@ -30,7 +30,7 @@ public class Battleship {
             } else {
                 error = false;
             }
-        } while (error);//Führe die Schleife aus, solange error = true ist.
+        } while (error);//Fuehre die Schleife aus, solange error = true ist.
 
         //Spieler-Array erstellen
         Player[] player = new Player[amountOfPlayer];//Spieleranzahl holen
@@ -145,15 +145,14 @@ public class Battleship {
 
             }
         }
-        //Ausgabe des Speilers der gewonnen hat
-
+        //Ausgabe des Spielers der gewonnen hat
+        printWinner(player);
     }
 
     /**
      * @param player Spielerarray
      * @param opponent Integerwert des Gegners f�r das Finden im Array
-     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen
-     * werden
+     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
      * @param orientation Richtung des Schusses
      * @param x Korrdinate des Fieldes
      * @param y Korrdinate des Fieldes
@@ -173,7 +172,14 @@ public class Battleship {
         //Gibt das Feld des Gegner aus
         player[opponent].getOpponentField().printOpponentField();
     }
-
+    
+    /**
+     * @param player Spielerarray
+     * @param opponent Integerwert des Gegners f�r das Finden im Array
+     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
+     * @param orientation Richtung des Schusses
+     * @param koordinate Zusammengesetze Koordinate aus Zahl und Buchstaben
+     */
     public static void shootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, String koordinate) {
         int[] hitShips;
 
@@ -198,6 +204,7 @@ public class Battleship {
     }
 
     /**
+     * Setzt die Ausrichtung des Schiffes fuer placeShip
      *
      * @return Integerwert fuer die Richtung
      */
@@ -222,6 +229,11 @@ public class Battleship {
         return orientation;
     }
 
+    /**
+     * Setzt die Ausrichtung des Schiffes fuer das Schiessen
+     * 
+     * @return Integerwert fuer die Richtung
+     */
     public static boolean setShootOrientation() {
         boolean orientation = false;
         boolean error = false;
@@ -257,7 +269,7 @@ public class Battleship {
     }
 
     /**
-     * Gibt Liste der Spieler aus, die zur Verf�gung stehen ohne des Spielers,
+     * Gibt Liste der Spieler aus, die zur Verfuegung stehen ohne des Spielers,
      * der gerade am Zug ist.
      *
      * @param player Spielerarray
@@ -267,9 +279,8 @@ public class Battleship {
         for (int p = 0; p < player.length; p++) {
             if (player[p].getIsLost() == false) {
                 if (player[p] != player[playerN]) {
-                    IO.println(player[p].getNumber() + " " + player[p].getName());
+                	IO.println(player[p].getNumber() + " " + player[p].getName());
                 }
-
             }
         }
     }
@@ -310,9 +321,10 @@ public class Battleship {
     }
 
     /**
+     * Gibt Summe der noch im Spiel befindenen Spieler zurueck 
      *
-     * @param player
-     * @return
+     * @param player Spielerarray
+     * @return Summe der noch im Spiel befindenen Spieler
      */
     public static int checkAmountOfAvailablePlayers(Player[] player) {
         int result = 0;
@@ -324,7 +336,12 @@ public class Battleship {
         return result;
 
     }
-
+    
+    /**
+     * Gibt Gewinner aus
+     * 
+     * @param player Spielerarray
+     */
     public static void printWinner(Player[] player) {
         for (int i = 0; i < player.length; i++) {
             if (player[i].getIsLost() == false) {
@@ -333,6 +350,11 @@ public class Battleship {
         }
     }
 
+    /**
+     * Gibt Koordinate des Schusses zurueck
+     * 
+     * @return Gibt Koordinate zurueck
+     */
     public static String getKoordinatesToShoot() {
         String koordinate;
         boolean error = false;
@@ -350,31 +372,46 @@ public class Battleship {
     }
 
     /**
+     * Gibt die Nummern der Gegner zurueck
      *
      * @param player Spielerarray
      * @param playerN Spielernummer
-     * @return
+     * @return Nummern der Gegner
      */
     public static int getNumberOfOpponent(Player[] player, int playerN) {
+    	int opponent;
         //Abfrage, welcher Spieler angegriffen werden soll
         IO.println("Welchen Spieler moechtest du angreifen?");
         //Gibt die Liste aller Spieler aus, die angegriffen werden koennen
         printListOfOpponents(player, playerN);
         IO.print("Geben Sie die Nummer des Gegners ein: ");
         //Einlesen des SPielers, den man angreifen will
-        int opponent = IO.readInt() - 1;
+        opponent = IO.readInt();
 
+        
+        //Opponent wird runtergezaehlt, damit es im Spielerarray genutzt werden kann.
+        opponent--;
         return opponent;
     }
-
+    
+    /**
+     * 
+     * @param player Spielerarray
+     * @param playerN Spielernummer
+     * @return 
+     */
     public static int getAvailableShipToShoot(Player[] player, int playerN) {
         IO.println("Mit welchem Schiff willst du schiessen?");
+        printListOfReloadingShips(player, playerN);
+        printListOfSunkShips(player, playerN);
+        IO.println("Schiffe, die zur Verf�gung stehen");
+        //Falsche Werte abfangen
         printListOfShips(player, playerN);
         //Einlesen des Schiffs
-        boolean error = false;
+        //boolean error = false;
         int ship;
         //Eingabe, welches Schiff schiessen soll
-        IO.println("Gebe die Nummer des Schiffs ein: ");
+        IO.println("Gib die Nummer des Schiffs ein: ");
         /*do{
          ship = IO.readInt();
          if(player[playerN].getShips()[ship-1].getCurrentReloadTime() == 0){
@@ -386,5 +423,40 @@ public class Battleship {
         ship = IO.readInt() - 1;
         IO.println("Sie haben das Schiff mit der Nummer " + player[playerN].getShips()[ship].getNumber() + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
         return ship;
+    }
+    
+    /**
+     * Gibt Liste der nachladenen Schiffe des Spielers zurueck
+     * 
+     * @param player Spielerarray
+     * @param playerN Integerwert f�r Spielernummer
+     */
+    public static void printListOfReloadingShips(Player[] player, int playerN){
+    	int waitingShips = 0;
+    	for(int i = 0; i < player[playerN].getShips().length; i++){
+    		if(player[playerN].getShips()[i].getCurrentReloadTime() > 0){
+    			waitingShips++;
+    		}
+    			
+    	}
+    	IO.println("Schiffe im Nachladeprozess: " + waitingShips + " Schiffe");
+    }
+    /**
+     * Gibt Liste der versunkenen Schiffe des Spielers zurueck
+     * 
+     * @param player Spielerarray
+     * @param playerN playerN Integerwert f�r Spielernummer
+     */
+    public static void printListOfSunkShips(Player[] player, int playerN){
+    	int sunkShips = 0;
+    	for(int i = 0; i < player[playerN].getShips().length; i++){
+    		//test
+    		boolean testStatus = player[playerN].getShips()[i].getIsSunk();
+    		if(player[playerN].getShips()[i].getIsSunk() == true){ 
+    			sunkShips++;
+    		}
+    			
+    	}
+    	IO.println("Gesunkene Schiffe: " + sunkShips + " Schiffe");
     }
 }
