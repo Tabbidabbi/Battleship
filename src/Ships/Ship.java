@@ -128,7 +128,7 @@ public abstract class Ship {
     }
 //Methode um die Schiffe zu setzen
 
-    public boolean placeShip(String input, boolean orientation, PlayField playfield) {
+    public boolean placeShip(String input, boolean orientation, PlayField playfield, PlayField opponentfield) {
 
         //true = horizontal
         if (orientation == true) {
@@ -159,6 +159,11 @@ public abstract class Ship {
                             playfield.getPlayField()[y][x + i].setWater(false);
                             playfield.getPlayField()[y][x + i].setHasShip(true);
                             playfield.getPlayField()[y][x + i].setShipNumber(getNumber());
+                            
+                            opponentfield.getPlayField()[y][x + i].setWater(false);
+                            opponentfield.getPlayField()[y][x + i].setHasShip(true);
+                            opponentfield.getPlayField()[y][x + i].setShipNumber(getNumber());
+                            
 
                         }
 
@@ -204,6 +209,11 @@ public abstract class Ship {
                             playfield.getPlayField()[y + i][x].setWater(false);
                             playfield.getPlayField()[y + i][x].setHasShip(true);
                             playfield.getPlayField()[y + i][x].setShipNumber(getNumber());
+                            
+                            opponentfield.getPlayField()[y][x + i].setWater(false);
+                            opponentfield.getPlayField()[y][x + i].setHasShip(true);
+                            opponentfield.getPlayField()[y][x + i].setShipNumber(getNumber());
+                            
                         }
 
                         // Deaktiviere Felder um das Schiff herum
