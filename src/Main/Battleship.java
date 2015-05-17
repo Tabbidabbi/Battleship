@@ -64,7 +64,7 @@ public class Battleship {
                 //Schiffsausrichtung holen
                 shipO = setOrientation();
                 //Schiff wird gesetzt
-                if (!ships[s].placeShip(coordinateInput, shipO, player[i].getField())) {
+                if (!ships[s].placeShip(coordinateInput, shipO, player[i].getField(), player[i].getOpponentField())) {
                     IO.println("Das Schiff konnte nicht gesetzt werden. Bitte erneut versuchen.");
                 } else {
                     s++;
@@ -213,7 +213,7 @@ public class Battleship {
                 orientation = true;
             } else if (o.equals("v")) {
                 error = false;
-                orientation = true;
+                orientation = false;
             } else {
                 IO.println("Falsche Eingabe, bitte wiederholen Sie die Eingabe!");
                 error = true;
@@ -234,7 +234,7 @@ public class Battleship {
                 orientation = true;
             } else if (o.equals("v")) {
                 error = false;
-                orientation = true;
+                orientation = false;
             } else {
                 IO.println("Falsche Eingabe, bitte wiederholen Sie die Eingabe!");
                 error = true;
@@ -383,9 +383,9 @@ public class Battleship {
         		
         	}  
         }while(error);
-        ship = ship - 1;
         IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
         //F�r Shiffs-Array
+        ship = ship - 1;
         
         return ship;
     }
