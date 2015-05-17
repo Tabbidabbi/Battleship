@@ -115,6 +115,8 @@ public abstract class Ship {
     	if(getHitpoints() == 0){
     		setSunk(true);
     		IO.println("Schiff wurde versenkt.");
+    		//test
+    		IO.println(getNumber()+ " " + getNumber() + " " + getHitpoints() + " " + getIsSunk());
     	}
     }
 
@@ -193,7 +195,7 @@ public abstract class Ship {
                     //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
                                 //gibt die ganze Methode "false zurück".
                                 if (!playfield.getPlayField()[y + i][x].getIsActive()) {
-                                    System.out.println("Leider nicht möglich, das Schiff muss mindestens 1 Feld Abstand zum nächsten Schiff haben!");
+                                    System.out.println("Leider nicht möglich, das Schiff muss mindestens 1 Feld Abstand zum naechsten Schiff haben!");
                                     return false;
                                 }
                                 //Falls das Schiff mit der Größe nicht in das Array passt, fange die Fehlermeldung ab und gib folgendes aus...

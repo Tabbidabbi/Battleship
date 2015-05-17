@@ -148,14 +148,13 @@ public class Battleship {
             }
         }
         //Ausgabe des Spielers der gewonnen hat
-
+        printWinner(player);
     }
 
     /**
      * @param player Spielerarray
      * @param opponent Integerwert des Gegners f�r das Finden im Array
-     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen
-     * werden
+     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
      * @param orientation Richtung des Schusses
      * @param x Korrdinate des Fieldes
      * @param y Korrdinate des Fieldes
@@ -175,7 +174,14 @@ public class Battleship {
         //Gibt das Feld des Gegner aus
         player[opponent].getOpponentField().printOpponentField();
     }
-
+    
+    /**
+     * @param player Spielerarray
+     * @param opponent Integerwert des Gegners f�r das Finden im Array
+     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
+     * @param orientation Richtung des Schusses
+     * @param koordinate Zusammengesetze Koordinate aus Zahl und Buchstaben
+     */
     public static void shootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, String koordinate) {
         int[] hitShips;
 
@@ -200,6 +206,7 @@ public class Battleship {
     }
 
     /**
+     * Setzt die Ausrichtung des Schiffes fuer placeShip
      *
      * @return Integerwert fuer die Richtung
      */
@@ -224,6 +231,11 @@ public class Battleship {
         return orientation;
     }
 
+    /**
+     * Setzt die Ausrichtung des Schiffes fuer das Schiessen
+     * 
+     * @return Integerwert fuer die Richtung
+     */
     public static boolean setShootOrientation() {
         boolean orientation = false;
         boolean error = false;
@@ -374,9 +386,9 @@ public class Battleship {
     	IO.println("Welchen Spieler moechtest du angreifen?");
     	do {
     		printListOfOpponents(player, playerN);
-    		IO.print("Geben Sie die Nummer des Gegners ein: ");
+    		IO.print("Gib die Nummer des Gegners ein: ");
             opponent = IO.readInt(); //Einlesen der Spieleranzahl
-            if (opponent < 2 || opponent > 6) {//Prüfen ob Spieler kleiner 2 oder größer 6 ist, wenn ja wird error auf true gestellt.
+            if (opponent < 1 || opponent > 6) {//Pruefen ob Spieler kleiner 2 oder groesser 6 ist, wenn ja wird error auf true gestellt.
                 error = true;
                 IO.println("Falsche Eingabe. In der Tabelle stehen die zur Verf�gung stehenden Gegner.");
             } else {
@@ -404,7 +416,7 @@ public class Battleship {
         //boolean error = false;
         int ship;
         //Eingabe, welches Schiff schiessen soll
-        IO.println("Gebe die Nummer des Schiffs ein: ");
+        IO.println("Gib die Nummer des Schiffs ein: ");
         /*do{
          ship = IO.readInt();
          if(player[playerN].getShips()[ship-1].getCurrentReloadTime() == 0){
@@ -426,8 +438,8 @@ public class Battleship {
      */
     public static void printListOfReloadingShips(Player[] player, int playerN){
     	int waitingShips = 0;
-    	for(int i = 0; i < player.length; i++){
-    		if(player[playerN].getShips()[i].getIsSunk() == true){
+    	for(int i = 0; i < player[playerN].getShips().length; i++){
+    		if(player[playerN].getShips()[i].getCurrentReloadTime() > 0){
     			waitingShips++;
     		}
     			
@@ -442,8 +454,10 @@ public class Battleship {
      */
     public static void printListOfSunkShips(Player[] player, int playerN){
     	int sunkShips = 0;
-    	for(int i = 0; i < player.length; i++){
-    		if(player[playerN].getShips()[i].getIsSunk() == true){
+    	for(int i = 0; i < player[playerN].getShips().length; i++){
+    		//test
+    		boolean testStatus = player[playerN].getShips()[i].getIsSunk();
+    		if(player[playerN].getShips()[i].getIsSunk() == true){ 
     			sunkShips++;
     		}
     			
