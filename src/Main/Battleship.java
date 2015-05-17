@@ -383,8 +383,10 @@ public class Battleship {
         		
         	}  
         }while(error);
-        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
         //F�r Shiffs-Array
+        
+        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[playerN].getShips()[ship - 1].getName() + " ausgewaehlt!");
+        //Fuer Shiffs-Array
         ship = ship - 1;
         
         return ship;
