@@ -370,6 +370,7 @@ public class Battleship {
 
     public static int getAvailableShipToShoot(Player[] player, int playerN) {
         IO.println("Mit welchem Schiff willst du schiessen?");
+        printListOfSunkShips(player, playerN);
         printListOfShips(player, playerN);
         //Einlesen des Schiffs
         boolean error = false;
@@ -387,5 +388,27 @@ public class Battleship {
         ship = IO.readInt() - 1;
         IO.println("Sie haben das Schiff mit der Nummer " + player[playerN].getShips()[ship].getNumber() + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
         return ship;
+    }
+    
+    public void printListOfWaitingShips(Player[] player, int playerN){
+    	int waitingShips = 0;
+    	for(int i = 0; i < player.length; i++){
+    		if(player[playerN].getShips()[i].getIsSunk() == true){
+    			waitingShips++;
+    		}
+    			
+    	}
+    	IO.println("Schiffe im Nachladeprozess: " + waitingShips + " Schiffe");
+    }
+    
+    public static void printListOfSunkShips(Player[] player, int playerN){
+    	int sunkShips = 0;
+    	for(int i = 0; i < player.length; i++){
+    		if(player[playerN].getShips()[i].getIsSunk() == true){
+    			sunkShips++;
+    		}
+    			
+    	}
+    	IO.println("Gesunkene Schiffe: " + sunkShips + " Schiffe");
     }
 }
