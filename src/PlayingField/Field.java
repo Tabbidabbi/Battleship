@@ -32,8 +32,9 @@ public class Field {
 		this.isWater = true;
 		this.isHit = false;
 		this.hasShip = false;
-        this.active = true;
+                this.active = true;
 		this.status = "~";
+                this.opponentStatus = "~";
     }
 
     public String getFieldnumber() {
@@ -145,7 +146,7 @@ public class Field {
 	 * Methode zum Ausgeben des aktuellen Status
 	 */
 	public void print(){
-		IO.print(this.status + "  ");
+		IO.print(this.status + "\t");
 //		IO.print(fieldnumber);
 	}
 	
@@ -153,7 +154,7 @@ public class Field {
 	 * Methode zum Ausgeben des aktuellen Status aus Gegnersicht
 	 */
 	public void printForOpponent(){
-		IO.print(this.opponentStatus + "  ");
+		IO.print(this.opponentStatus + "\t");
 	}
 	
 	

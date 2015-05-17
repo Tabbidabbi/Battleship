@@ -132,7 +132,6 @@ public abstract class Ship {
 
         //true = horizontal
         if (orientation == true) {
-//             Testen ob Schiff komplett gezeichnet werden kann
             for (int y = 0; y < playfield.getPlayField().length; y++) {
                 for (int x = 0; x < playfield.getPlayField()[y].length; x++) {
                     if (input.equals(playfield.getPlayField()[y][x].getFieldnumber())) {
@@ -156,6 +155,7 @@ public abstract class Ship {
 
                         for (int i = 0; i < getSize(); i++) {
                             playfield.getPlayField()[y][x + i].setStatus(this.getSign());
+                            playfield.getPlayField()[y][x + i].setOpponentStatus(this.getSign());
                             playfield.getPlayField()[y][x + i].setWater(false);
                             playfield.getPlayField()[y][x + i].setHasShip(true);
                             playfield.getPlayField()[y][x + i].setShipNumber(getNumber());
@@ -200,6 +200,7 @@ public abstract class Ship {
                         // Setze Schiff
                         for (int i = 0; i < getSize(); i++) {
                             playfield.getPlayField()[y + i][x].setStatus(this.getSign());
+                            playfield.getPlayField()[y + i][x].setOpponentStatus(this.getSign());
                             playfield.getPlayField()[y + i][x].setWater(false);
                             playfield.getPlayField()[y + i][x].setHasShip(true);
                             playfield.getPlayField()[y + i][x].setShipNumber(getNumber());
