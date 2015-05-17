@@ -377,18 +377,16 @@ public class Battleship {
         int ship;
         //Eingabe, welches Schiff schiessen soll
         IO.println("Gebe die Nummer des Schiffs ein: ");
-        do{
+        /*do{
         	ship = IO.readInt();
         	if(player[playerN].getShips()[ship-1].getCurrentReloadTime() == 0){
         		error = true;
         	}else{
         		
         	}  
-        }while(error);
-        ship = ship - 1;
-        IO.println("Sie haben das Schiff mit der Nummer " + ship + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
-        //F�r Shiffs-Array
-        
+        }while(error);*/
+        ship = IO.readInt() - 1;
+        IO.println("Sie haben das Schiff mit der Nummer " + player[playerN].getShips()[ship].getNumber() + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
         return ship;
     }
 
