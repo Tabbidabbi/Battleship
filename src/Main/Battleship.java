@@ -103,12 +103,10 @@ public class Battleship {
                         if (shootRange > 1) {
                             orientation = setShootOrientation();
                         }
-
-                        //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
                         int opponent = getNumberOfOpponent(player, pla);
+                        //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
                         //Gibt das Spielfeld des Gegners aus
                         player[opponent].getOpponentField().printOpponentField();
-
                         //3. Koordinate auf dem Spielfeld ausw�hlen. (Methode hierf�r schreiben)
                         //Abfrage
                         String koordinate = getKoordinatesToShoot();
@@ -365,6 +363,7 @@ public class Battleship {
         IO.print("Geben Sie die Nummer des Gegners ein: ");
         //Einlesen des SPielers, den man angreifen will
         int opponent = IO.readInt() - 1;
+
         return opponent;
     }
 

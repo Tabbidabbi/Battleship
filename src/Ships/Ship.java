@@ -142,12 +142,12 @@ public abstract class Ship {
                                 //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
                                 //gibt die ganze Methode "false zurück".
                                 if (!playfield.getPlayField()[y][x + i].getIsActive()) {
-                                    System.out.println("Leider nicht möglich, das Schiff muss mindestens 1 Feld Abstand zum nächsten Schiff haben!");
+                                    IO.println("Leider nicht möglich, das Schiff muss mindestens 1 Feld Abstand zum nächsten Schiff haben!");
                                     return false;
                                 }
                                 //Falls das Schiff mit der Größe nicht in das Array passt, fange die Fehlermeldung ab und gib folgendes aus...
                             } catch (ArrayIndexOutOfBoundsException e) {
-                                System.out.println("Das Schiff passt so nicht auf das Spielfeld, bitte neue koordinaten eingeben!!!");
+                                IO.println("Das Schiff passt so nicht auf das Spielfeld, bitte neue koordinaten eingeben!!!");
                                 return false;
                             }
                         }
@@ -193,12 +193,12 @@ public abstract class Ship {
                     //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
                                 //gibt die ganze Methode "false zurück".
                                 if (!playfield.getPlayField()[y + i][x].getIsActive()) {
-                                    System.out.println("Leider nicht möglich, das Schiff muss mindestens 1 Feld Abstand zum nächsten Schiff haben!");
+                                    IO.println("Leider nicht möglich, das Schiff muss mindestens 1 Feld Abstand zum nächsten Schiff haben!");
                                     return false;
                                 }
                                 //Falls das Schiff mit der Größe nicht in das Array passt, fange die Fehlermeldung ab und gib folgendes aus...
                             } catch (ArrayIndexOutOfBoundsException e) {
-                                System.out.println("Das Schiff passt so nicht auf das Spielfeld, bitte neue koordinaten eingeben!!!");
+                                IO.println("Das Schiff passt so nicht auf das Spielfeld, bitte neue koordinaten eingeben!!!");
                                 return false;
                             }
                         }
