@@ -411,6 +411,8 @@ public class Battleship {
         IO.println("Mit welchem Schiff willst du schiessen?");
         printListOfReloadingShips(player, playerN);
         printListOfSunkShips(player, playerN);
+        IO.println("Schiffe, die zur Verfügung stehen");
+        //Falsche Werte abfangen
         printListOfShips(player, playerN);
         //Einlesen des Schiffs
         //boolean error = false;
