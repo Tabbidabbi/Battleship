@@ -111,7 +111,7 @@ public abstract class Ship {
     }
 
     public void setHitpoints() {
-    	this.hitpoints = this.hitpoints - 1;
+    	this.hitpoints--;
     	if(getHitpoints() == 0){
     		setSunk(true);
     		IO.println("Schiff wurde versenkt.");

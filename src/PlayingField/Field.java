@@ -83,22 +83,22 @@ public class Field {
      * @return Schiffsnummer
      */
 	public int setIsShot(){
-		if(this.isShot == true){
-			IO.println("Sie haben bereits auf dieses Feld geschossen. Ein verschenkter Schuss!");
-		}
-		else{
+		if(this.isShot == false){
 			this.isShot = true;
-			if(this.hasShip == true){
+			if(getHasShip() == true){
 				this.setStatus("X");
 				this.setOpponentStatus("X");
 				this.setHit(true);
-				IO.println("Sie haben ein Schiff getroffen!");
+				//IO.println("Sie haben ein Schiff getroffen!");
 			}
 			else{
 				this.setStatus("O");
-				this.setOpponentStatus("0");
-				IO.println("Sie haben auf Wasser geschossen!");
+				this.setOpponentStatus("O");
+				//IO.println("Sie haben auf Wasser geschossen!");
 			}
+		}
+		else{
+			IO.println("Sie haben bereits auf dieses Feld geschossen. Ein verschenkter Schuss!");
 		}
 		return getShipNumber();
 	}	
