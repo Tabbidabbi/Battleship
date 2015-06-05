@@ -82,58 +82,61 @@ public class Battleship {
 
                     //Setzt die Nachladezeit aller Schiffe in jeder Runde um 1 runter
                     for (int sh = 0; sh < player[pl].getShips().length; sh++) {
-                        if (player[pl].getShips()[sh].getCurrentReloadTime() > 1) {
+                        if (player[pl].getShips()[sh].getCurrentReloadTime() >= 1) {
                             player[pl].getShips()[sh].setDownReloadTime();
                         }
                     }
 
                     //Runde des Spielers pla
                     for (int pla = 0; pla < player.length; pla++) {
-                        IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
-                        player[pla].getField().printPlayField();
+                        if (player[pl].getIsLost() == false) {
 
-                        //1. Auswahl eines verfuegbaren Schiffes. (Methode hierf�r schreiben)
-                        int ship = getAvailableShipToShoot(player, pla);
+                            IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
+                            player[pla].getField().printPlayField();
 
-                        //Reichweite des Schusses, um diese der Methode setShot zu uebergeben
-                        int shootRange = player[pl].getShips()[ship].getShootRange();
+                            //1. Auswahl eines verfuegbaren Schiffes. (Methode hierf�r schreiben)
+                            int ship = getAvailableShipToShoot(player, pla);
 
-                        //Hierfuer noch eine Methode schreiben
-                        boolean orientation = false;
-                        if (shootRange > 1) {
-                            orientation = setShootOrientation();
-                        }
-                        int opponent = getNumberOfOpponent(player, pla);
+                            //Reichweite des Schusses, um diese der Methode setShot zu uebergeben
+                            int shootRange = player[pl].getShips()[ship].getShootRange();
+
+                            //Hierfuer noch eine Methode schreiben
+                            boolean orientation = false;
+                            if (shootRange > 1) {
+                                orientation = setShootOrientation();
+                            }
+                            int opponent = getNumberOfOpponent(player, pla);
                         //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
-                        //Gibt das Spielfeld des Gegners aus
-                        player[opponent].getOpponentField().printOpponentField();
+                            //Gibt das Spielfeld des Gegners aus
+                            player[opponent].getOpponentField().printOpponentField();
                         //3. Koordinate auf dem Spielfeld ausw�hlen. (Methode hierf�r schreiben)
-                        //Abfrage
-                        String koordinate = getKoordinatesToShoot();
+                            //Abfrage
+                            String koordinate = getKoordinatesToShoot();
                         //IO.println("Wo soll das Schiff hinschiessen?");
-                        //Einlesen X-Koordinate
-                        //IO.print("X = ");
-                        //int x = IO.readInt();
-                        //Einlesen Y-Koordinate
-                        //IO.print("Y = ");
-                        //int y = IO.readInt();
+                            //Einlesen X-Koordinate
+                            //IO.print("X = ");
+                            //int x = IO.readInt();
+                            //Einlesen Y-Koordinate
+                            //IO.print("Y = ");
+                            //int y = IO.readInt();
 
                         //Schiessen
-                        //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
-                        //shootOnPlayField(player, opponent, shootRange, orientation, x, y);
-                        shootOnPlayField(player, opponent, shootRange, orientation, koordinate);
+                            //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
+                            //shootOnPlayField(player, opponent, shootRange, orientation, x, y);
+                            shootOnPlayField(player, opponent, shootRange, orientation, koordinate);
 
                         //Nachladezeit nach Schuss setzen, damit das Schiff erst nachladen muss,
-                        //um wieder schiessen zu koennen
-                        player[pla].getShips()[ship].setCurrentReloadTime();
+                            //um wieder schiessen zu koennen
+                            player[pla].getShips()[ship].setCurrentReloadTime();
 
-                        if (checkIfShipAvailable(player, opponent) == false) {
-                            player[opponent].setLost(true);
-                        }
+                            if (checkIfShipAvailable(player, opponent) == false) {
+                                player[opponent].setLost(true);
+                            }
 
-                        if (player[opponent].getIsLost() == true) {
-                            //Spieler player[pla] aus dem Spieler-Array nehmen
-                            IO.println(player[opponent].getName() + " hat verloren!");
+                            if (player[opponent].getIsLost() == true) {
+                                //Spieler player[pla] aus dem Spieler-Array nehmen
+                                IO.println(player[opponent].getName() + " hat verloren!");
+                            }
                         }
                     }
                 }
@@ -152,7 +155,8 @@ public class Battleship {
     /**
      * @param player Spielerarray
      * @param opponent Integerwert des Gegners f�r das Finden im Array
-     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
+     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen
+     * werden
      * @param orientation Richtung des Schusses
      * @param x Korrdinate des Fieldes
      * @param y Korrdinate des Fieldes
@@ -172,11 +176,12 @@ public class Battleship {
         //Gibt das Feld des Gegner aus
         player[opponent].getOpponentField().printOpponentField();
     }
-    
+
     /**
      * @param player Spielerarray
      * @param opponent Integerwert des Gegners f�r das Finden im Array
-     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen werden
+     * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen
+     * werden
      * @param orientation Richtung des Schusses
      * @param koordinate Zusammengesetze Koordinate aus Zahl und Buchstaben
      */
@@ -231,7 +236,7 @@ public class Battleship {
 
     /**
      * Setzt die Ausrichtung des Schiffes fuer das Schiessen
-     * 
+     *
      * @return Integerwert fuer die Richtung
      */
     public static boolean setShootOrientation() {
@@ -279,7 +284,7 @@ public class Battleship {
         for (int p = 0; p < player.length; p++) {
             if (player[p].getIsLost() == false) {
                 if (player[p] != player[playerN]) {
-                	IO.println(player[p].getNumber() + " " + player[p].getName());
+                    IO.println(player[p].getNumber() + " " + player[p].getName());
                 }
             }
         }
@@ -321,7 +326,7 @@ public class Battleship {
     }
 
     /**
-     * Gibt Summe der noch im Spiel befindenen Spieler zurueck 
+     * Gibt Summe der noch im Spiel befindenen Spieler zurueck
      *
      * @param player Spielerarray
      * @return Summe der noch im Spiel befindenen Spieler
@@ -336,10 +341,10 @@ public class Battleship {
         return result;
 
     }
-    
+
     /**
      * Gibt Gewinner aus
-     * 
+     *
      * @param player Spielerarray
      */
     public static void printWinner(Player[] player) {
@@ -352,7 +357,7 @@ public class Battleship {
 
     /**
      * Gibt Koordinate des Schusses zurueck
-     * 
+     *
      * @return Gibt Koordinate zurueck
      */
     public static String getKoordinatesToShoot() {
@@ -379,7 +384,7 @@ public class Battleship {
      * @return Nummern der Gegner
      */
     public static int getNumberOfOpponent(Player[] player, int playerN) {
-    	int opponent;
+        int opponent;
         //Abfrage, welcher Spieler angegriffen werden soll
         IO.println("Welchen Spieler moechtest du angreifen?");
         //Gibt die Liste aller Spieler aus, die angegriffen werden koennen
@@ -388,23 +393,22 @@ public class Battleship {
         //Einlesen des SPielers, den man angreifen will
         opponent = IO.readInt();
 
-        
         //Opponent wird runtergezaehlt, damit es im Spielerarray genutzt werden kann.
         opponent--;
         return opponent;
     }
-    
+
     /**
-     * 
+     *
      * @param player Spielerarray
      * @param playerN Spielernummer
-     * @return 
+     * @return
      */
     public static int getAvailableShipToShoot(Player[] player, int playerN) {
         IO.println("Mit welchem Schiff willst du schiessen?");
         printListOfReloadingShips(player, playerN);
         printListOfSunkShips(player, playerN);
-        IO.println("Schiffe, die zur Verf�gung stehen");
+        IO.println("Schiffe, die zur Verfuegung stehen");
         //Falsche Werte abfangen
         printListOfShips(player, playerN);
         //Einlesen des Schiffs
@@ -424,39 +428,42 @@ public class Battleship {
         IO.println("Sie haben das Schiff mit der Nummer " + player[playerN].getShips()[ship].getNumber() + " mit dem Typ " + player[playerN].getShips()[ship].getName() + " ausgewaehlt!");
         return ship;
     }
-    
+
     /**
      * Gibt Liste der nachladenen Schiffe des Spielers zurueck
-     * 
+     *
      * @param player Spielerarray
      * @param playerN Integerwert f�r Spielernummer
      */
-    public static void printListOfReloadingShips(Player[] player, int playerN){
-    	int waitingShips = 0;
-    	for(int i = 0; i < player[playerN].getShips().length; i++){
-    		if(player[playerN].getShips()[i].getCurrentReloadTime() > 0){
-    			waitingShips++;
-    		}
-    			
-    	}
-    	IO.println("Schiffe im Nachladeprozess: " + waitingShips + " Schiffe");
+    public static void printListOfReloadingShips(Player[] player, int playerN) {
+        int waitingShips = 0;
+        for (int i = 0; i < player[playerN].getShips().length; i++) {
+            if (player[playerN].getShips()[i].getCurrentReloadTime() > 0) {
+                if(player[playerN].getShips()[i].getIsSunk() == false){
+                    waitingShips++;
+                }
+            }
+
+        }
+        IO.println("Schiffe im Nachladeprozess: " + waitingShips + " Schiffe");
     }
+
     /**
      * Gibt Liste der versunkenen Schiffe des Spielers zurueck
-     * 
+     *
      * @param player Spielerarray
      * @param playerN playerN Integerwert f�r Spielernummer
      */
-    public static void printListOfSunkShips(Player[] player, int playerN){
-    	int sunkShips = 0;
-    	for(int i = 0; i < player[playerN].getShips().length; i++){
-    		//test
-    		boolean testStatus = player[playerN].getShips()[i].getIsSunk();
-    		if(player[playerN].getShips()[i].getIsSunk() == true){ 
-    			sunkShips++;
-    		}
-    			
-    	}
-    	IO.println("Gesunkene Schiffe: " + sunkShips + " Schiffe");
+    public static void printListOfSunkShips(Player[] player, int playerN) {
+        int sunkShips = 0;
+        for (int i = 0; i < player[playerN].getShips().length; i++) {
+            //test
+            boolean testStatus = player[playerN].getShips()[i].getIsSunk();
+            if (player[playerN].getShips()[i].getIsSunk() == true) {
+                sunkShips++;
+            }
+
+        }
+        IO.println("Gesunkene Schiffe: " + sunkShips + " Schiffe");
     }
 }
