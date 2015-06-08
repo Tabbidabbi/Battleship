@@ -66,7 +66,7 @@ public class Game {
                     for (int pla = 0; pla < player.length; pla++) {
                         if (player[pl].getIsLost() == false) {
 
-                            IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
+                            IO.println("Spieler " + player[pla].getPlayerID() + ": " + player[pla].getName() + " ist am Zug!");
                             player[pla].getField().printPlayField();
 
                             //1. Auswahl eines verfuegbaren Schiffes. (Methode hierf�r schreiben)
@@ -288,7 +288,7 @@ public class Game {
     public void printListOfPlayers(Player[] player) {
         for (int p = 0; p < player.length; p++) {
             if (player[p].getIsLost() == false) {
-                IO.println(player[p].getNumber() + " " + player[p].getName());
+                IO.println(player[p].getPlayerID() + " " + player[p].getName());
             }
         }
     }
@@ -304,7 +304,7 @@ public class Game {
         for (int p = 0; p < player.length; p++) {
             if (player[p].getIsLost() == false) {
                 if (player[p] != player[playerN]) {
-                    IO.println(player[p].getNumber() + " " + player[p].getName());
+                    IO.println(player[p].getPlayerID() + " " + player[p].getName());
                 }
             }
         }

@@ -14,7 +14,7 @@ import PlayingField.PlayField;
  */
 public class Player {
 
-    private int number;
+    private int playerID;
     private String name;
     private Ship[] ships = new Ship[6];
     private PlayField playfield;
@@ -30,7 +30,7 @@ public class Player {
     
     public Player(int number, String name) {
 
-        this.number = number;
+        this.playerID = number;
         this.name = name;
 
 		//Schiffs-Array mit Schiffen f�llen
@@ -61,8 +61,8 @@ public class Player {
     
     //Getter Methoden deffinieren
     
-    public int getNumber() {
-        return this.number;
+    public int getPlayerID() {
+        return this.playerID;
     }
     
     public String getName() {
@@ -87,8 +87,8 @@ public class Player {
     
     //Setter Methoden deffinieren
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setPlayerID(int number) {
+        this.playerID = number;
     }
 
     
