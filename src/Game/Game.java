@@ -23,11 +23,16 @@ public class Game {
     int amountOfPlayer;//Speicher fuer Spieleranzahl
     boolean error = false; //Speicher für falsche Eingabe, wenn Spieler falsche Eingabe tätigt wird der Wert auf "true" gestellt.
 
+    public void initializeGame() {
+        initializePlayer();
+    }
+
     public Player[] initializePlayer() {
         //Spiel beginnt
         IO.println("Herzlich Willkommen zu Schiffe versenken!");
         chooseAtStart();
-        amountOfPlayer = getAmountOfPlayer();
+        Settings setting = new Settings();
+        amountOfPlayer = setting.setAmountOfPlayer();
 
         //Spieler-Array erstellen
         Player[] player = new Player[amountOfPlayer];//Spieleranzahl holen
@@ -38,13 +43,17 @@ public class Game {
 // Dynamische Schiffliste abfragen
 
             //Anzahl der Schiffe holen.
-            ships = player[i].getShips();
-            placeAllShips(player, i);
+//            ships = player[i].getShips();
+//            placeAllShips(player, i);
         }
 
         return player;
 
     }
+
+//    public Ships[] initializeShips() {
+//
+//    }
 
     public void playRounds() {
         //Runde beginnt
@@ -125,22 +134,6 @@ public class Game {
         }
         //Ausgabe des Spielers der gewonnen hat
         printWinner(player);
-
-    }
-
-    public int getAmountOfPlayer() {
-        //Do-While Schleife welche bei falsche Eingabe den Spieler auffordert, die Eingabe zu wiederholen.
-        do {
-            IO.print("Geben Sie die Anzahl der Spieler ein (2-6): ");
-            amountOfPlayer = IO.readInt(); //Einlesen der Spieleranzahl
-            if (amountOfPlayer < 2 || amountOfPlayer > 6) {//Prüfen ob Spieler kleiner 2 oder größer 6 ist, wenn ja wird error auf true gestellt.
-                error = true;
-                IO.println("Falsche Eingabe, es muessen mindestens 2 und maximal 6 Spieler spielen.");
-            } else {
-                error = false;
-            }
-        } while (error);//Fuehre die Schleife aus, solange error = true ist.
-        return amountOfPlayer;
 
     }
 
@@ -490,8 +483,8 @@ public class Game {
     private void chooseAtStart() {
         error = false;
         do {
-            System.out.println("Drücken Sie " + (char)27 + "[31m<s>" + (char)27 + "[0m" + " um das Spiel zu beginnen, oder "
-            + (char)27 + "[31m<a>" + (char)27 + "[0m"+ " um die Anleitung zu sehen: ");
+            System.out.println("Drücken Sie " + (char) 27 + "[31m<s>" + (char) 27 + "[0m" + " um das Spiel zu beginnen, oder "
+                    + (char) 27 + "[31m<a>" + (char) 27 + "[0m" + " um die Anleitung zu sehen: ");
             input = IO.readString().toLowerCase();
             if (input.equals("s")) {
                 error = false;

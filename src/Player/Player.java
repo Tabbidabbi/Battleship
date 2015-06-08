@@ -55,7 +55,7 @@ public class Player {
     
     
 
-    public void initialize() {
+    public void initializePlayer() {
         
     }
     
