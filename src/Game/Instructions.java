@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Game;
+import IO.IO;
 
 /**
  *
@@ -12,7 +13,11 @@ package Game;
 public class Instructions {
     
     public void instructions() {
+        
+        IO.println("Regeln: Deine Aufgabe: Die gegnerischen Flotten versenken.");
+    }
+        
     
-}
+
     
 }

@@ -15,6 +15,7 @@ import Ships.Ship;
  */
 public class Game {
 
+    String input;
     String coordinateInput;//Eingabe der Koordinate
     boolean shipO;// Ausrichtung des Schiffes (h,v)
     Player player[];
@@ -25,6 +26,7 @@ public class Game {
     public Player[] initializePlayer() {
         //Spiel beginnt
         IO.println("Herzlich Willkommen zu Schiffe versenken!");
+        chooseAtStart();
         amountOfPlayer = getAmountOfPlayer();
 
         //Spieler-Array erstellen
@@ -39,10 +41,12 @@ public class Game {
             ships = player[i].getShips();
             placeAllShips(player, i);
         }
+
         return player;
 
     }
-    public void playRounds(){
+
+    public void playRounds() {
         //Runde beginnt
         //solange es mehr als einen spieler gibt
         while (checkAmountOfAvailablePlayers(player) > 1) {
@@ -77,10 +81,10 @@ public class Game {
                                 orientation = setShootOrientation();
                             }
                             int opponent = getNumberOfOpponent(player, pla);
-                        //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
+                            //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
                             //Gibt das Spielfeld des Gegners aus
                             player[opponent].getOpponentField().printOpponentField();
-                        //3. Koordinate auf dem Spielfeld ausw�hlen. (Methode hierf�r schreiben)
+                            //3. Koordinate auf dem Spielfeld ausw�hlen. (Methode hierf�r schreiben)
                             //Abfrage
                             String koordinate = getKoordinatesToShoot();
                         //IO.println("Wo soll das Schiff hinschiessen?");
@@ -91,12 +95,12 @@ public class Game {
                             //IO.print("Y = ");
                             //int y = IO.readInt();
 
-                        //Schiessen
+                            //Schiessen
                             //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
                             //shootOnPlayField(player, opponent, shootRange, orientation, x, y);
                             shootOnPlayField(player, opponent, shootRange, orientation, koordinate);
 
-                        //Nachladezeit nach Schuss setzen, damit das Schiff erst nachladen muss,
+                            //Nachladezeit nach Schuss setzen, damit das Schiff erst nachladen muss,
                             //um wieder schiessen zu koennen
                             player[pla].getShips()[ship].setCurrentReloadTime();
 
@@ -121,7 +125,7 @@ public class Game {
         }
         //Ausgabe des Spielers der gewonnen hat
         printWinner(player);
-    
+
     }
 
     public int getAmountOfPlayer() {
@@ -140,7 +144,7 @@ public class Game {
 
     }
 
-    public Ship[] placeAllShips(Player[] player, int playerNumber ) {
+    public Ship[] placeAllShips(Player[] player, int playerNumber) {
         for (int s = 0; s < ships.length;) {
             error = false;
             //Koordinaten holen
@@ -167,7 +171,8 @@ public class Game {
         }
         return ships;
     }
- /**
+
+    /**
      * Setzt die Ausrichtung des Schiffes fuer placeShip
      *
      * @return Integerwert fuer die Richtung
@@ -192,13 +197,13 @@ public class Game {
 
         return orientation;
     }
- /**
+
+    /**
      * Setzt die Ausrichtung des Schiffes fuer das Schiessen
      *
      * @return Integerwert fuer die Richtung
      */
-
- public  boolean setShootOrientation() {
+    public boolean setShootOrientation() {
         boolean orientation = false;
         boolean error = false;
         do {
@@ -218,7 +223,8 @@ public class Game {
 
         return orientation;
     }
-  /**
+
+    /**
      * @param player Spielerarray
      * @param opponent Integerwert des Gegners f�r das Finden im Array
      * @param shootRange Anzahl der Felder, die bei einem Schuss getroffen
@@ -227,7 +233,7 @@ public class Game {
      * @param x Korrdinate des Fieldes
      * @param y Korrdinate des Fieldes
      */
-    public  void shootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, int x, int y) {
+    public void shootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, int x, int y) {
         int[] hitShips;
 
         //Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
@@ -397,7 +403,7 @@ public class Game {
      * @param playerN Spielernummer
      * @return Nummern der Gegner
      */
-    public  int getNumberOfOpponent(Player[] player, int playerN) {
+    public int getNumberOfOpponent(Player[] player, int playerN) {
         int opponent;
         //Abfrage, welcher Spieler angegriffen werden soll
         IO.println("Welchen Spieler moechtest du angreifen?");
@@ -418,7 +424,7 @@ public class Game {
      * @param playerN Spielernummer
      * @return
      */
-    public  int getAvailableShipToShoot(Player[] player, int playerN) {
+    public int getAvailableShipToShoot(Player[] player, int playerN) {
         IO.println("Mit welchem Schiff willst du schiessen?");
         printListOfReloadingShips(player, playerN);
         printListOfSunkShips(player, playerN);
@@ -449,11 +455,11 @@ public class Game {
      * @param player Spielerarray
      * @param playerN Integerwert f�r Spielernummer
      */
-    public  void printListOfReloadingShips(Player[] player, int playerN) {
+    public void printListOfReloadingShips(Player[] player, int playerN) {
         int waitingShips = 0;
         for (int i = 0; i < player[playerN].getShips().length; i++) {
             if (player[playerN].getShips()[i].getCurrentReloadTime() > 0) {
-                if(player[playerN].getShips()[i].getIsSunk() == false){
+                if (player[playerN].getShips()[i].getIsSunk() == false) {
                     waitingShips++;
                 }
             }
@@ -480,4 +486,26 @@ public class Game {
         }
         IO.println("Gesunkene Schiffe: " + sunkShips + " Schiffe");
     }
+
+    private void chooseAtStart() {
+        error = false;
+        do {
+            System.out.println("Drücken Sie " + (char)27 + "[31m<s>" + (char)27 + "[0m" + " um das Spiel zu beginnen, oder "
+            + (char)27 + "[31m<a>" + (char)27 + "[0m"+ " um die Anleitung zu sehen: ");
+            input = IO.readString().toLowerCase();
+            if (input.equals("s")) {
+                error = false;
+            } else if (input.equals("a")) {
+                Instructions instruction = new Instructions();
+                instruction.instructions();
+                IO.print("Drücke eine beliebige Taste um Fortzufahren: ");
+                IO.readString();
+                error = true;
+            } else {
+                IO.println("Falsche Eingabe! ");
+                error = true;
+            }
+        } while (error);
+    }
+
 }
