@@ -14,14 +14,15 @@ import IO.IO;
 public class Settings {
     
     boolean error = false;
+    int sum;
     int amountOfPlayer;
-    String amountOfAllShips;
+    int amountOfAllShips;
     int amountOfDestroyer;
     int amountOfFrigate;
     int amountOfCorvette;
     int amountOfSubmarine;
-    
-     public int setAmountOfPlayer() {
+
+    public int setAmountOfPlayer() {
         //Do-While Schleife welche bei falsche Eingabe den Spieler auffordert, die Eingabe zu wiederholen.
         do {
             IO.print("Geben Sie die Anzahl der Spieler ein (2-6): ");
@@ -36,33 +37,78 @@ public class Settings {
         return amountOfPlayer;
 
     }
-     public String setAmountOfAllShips() {
-         error = false;
-         do {
-             IO.print("Wieviele Schiffe dürfen insgesammt gesetzt werden?");
-             amountOfAllShips = IO.readString();
-             if (amountOfAllShips.matches("^[1-9]{1}[0-9]{0,1}$")) {
-                 error = false;
-             }else {
-                 IO.println("Falsche Eingabe!");
-                 error = true;
-             }
-             
-         } while(error);
-         
-         return amountOfAllShips;
-     }
-//    
-//     public int setAmountOfDestroyer() {
-//         do {
-//             IO.print("Wieviele Zerstoerer dürfen in dem Spiel gesetzt werden?");
-//             amountOfDestroyer = IO.readInt();
-//             if (amountOfDestroyer("^[1-9]{1}[0-9]{1}[a-z]{1}$")) {
-//                    error = false;
-//                } else {
-//                    IO.println("Falsche Eingabe, bitte geben sie zuerst die Nummer und dann den Buchstaben des Feldes ein: ");
-//                    error = true;
-//                }
-//         } while (error);
-//     }
+
+    public void getAmountOfAllShips() {
+        amountOfAllShips = amountOfDestroyer + amountOfCorvette + amountOfFrigate + amountOfSubmarine;
+        System.out.println(amountOfAllShips);
+    }
+
+    public int setAmountOfDestroyer() {
+        error = false;
+        do {
+            IO.print("Wieviele Zerstoerer dürfen insgesammt gesetzt werden?");
+            amountOfDestroyer = IO.readInt();
+            String s = Integer.toString(amountOfDestroyer);
+            if (s.matches("^[1-9]{1}[0-9]{0,1}$")) {
+                error = false;
+            } else {
+                IO.println("Falsche Eingabe!");
+                error = true;
+            }
+
+        } while (error);
+
+        return amountOfDestroyer;
+    }
+    public int setAmountOfFrigate() {
+        error = false;
+        do {
+            IO.print("Wieviele Fregatten dürfen insgesammt gesetzt werden?");
+            amountOfFrigate = IO.readInt();
+            String s = Integer.toString(amountOfFrigate);
+            if (s.matches("^[1-9]{1}[0-9]{0,1}$")) {
+                error = false;
+            } else {
+                IO.println("Falsche Eingabe!");
+                error = true;
+            }
+
+        } while (error);
+
+        return amountOfFrigate;
+    }
+    public int setAmountOfCorvette() {
+        error = false;
+        do {
+            IO.print("Wieviele Korvetten dürfen insgesammt gesetzt werden?");
+            amountOfCorvette = IO.readInt();
+            String s = Integer.toString(amountOfCorvette);
+            if (s.matches("^[1-9]{1}[0-9]{0,1}$")) {
+                error = false;
+            } else {
+                IO.println("Falsche Eingabe!");
+                error = true;
+            }
+
+        } while (error);
+
+        return amountOfCorvette;
+    }
+    public int setAmountOfSubmarine() {
+        error = false;
+        do {
+            IO.print("Wieviele U-Boote dürfen insgesammt gesetzt werden?");
+            amountOfSubmarine = IO.readInt();
+            String s = Integer.toString(amountOfSubmarine);
+            if (s.matches("^[1-9]{1}[0-9]{0,1}$")) {
+                error = false;
+            } else {
+                IO.println("Falsche Eingabe!");
+                error = true;
+            }
+
+        } while (error);
+
+        return amountOfSubmarine;
+    }
 }

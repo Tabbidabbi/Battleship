@@ -13,8 +13,9 @@ import Game.Settings;
 public class Testing {
     
     public static void main(String[] args) {
-        Settings setting = new Settings();
-        setting.setAmountOfAllShips();
+       Settings settings = new Settings();
+       settings.setAmountOfDestroyer();
+       settings.getAmountOfAllShips();
     }
     
 }
