@@ -21,6 +21,7 @@ public class Player {
     private PlayField opponentField;
     //private Field[][] field;
     private boolean lost = false;
+    private boolean isAiPlayer;
 
     /**
    	 * Konstruktor
@@ -115,4 +116,16 @@ public class Player {
     public void setOpponentField(PlayField opponentField) {
         this.opponentField = opponentField;
     }
+
+
+
+	public boolean getIsAiPlayer() {
+		return isAiPlayer;
+	}
+
+
+
+	public void setAiPlayer(boolean isAiPlayer) {
+		this.isAiPlayer = isAiPlayer;
+	}
 }

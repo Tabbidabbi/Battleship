@@ -6,8 +6,10 @@
 package Game;
 
 import IO.IO;
+import Player.AiPlayer;
 import Player.Player;
 import Ships.Ship;
+import java.util.ArrayList;
 
 /**
  *
@@ -32,6 +34,7 @@ public class Game {
         //Spieler-Array erstellen
         Player[] player = new Player[amountOfPlayer];//Spieleranzahl holen
         for (int i = 0; i < amountOfPlayer; i++) {
+        	
             IO.print("Spieler " + (i + 1) + " - Geben Sie ihren Namen ein: ");
             String name = IO.readString();//Einlesen des Spielernamens
             player[i] = new Player(i + 1, name);//Jeder Index im Array bekommt einen Spieler
@@ -39,7 +42,13 @@ public class Game {
 
             //Anzahl der Schiffe holen.
             ships = player[i].getShips();
-            placeAllShips(player, i);
+            if(player[i].getIsAiPlayer() == true){
+            	placeAllAiShips(player, i);
+            }
+            else{
+            	placeAllShips(player, i);
+            }
+            
         }
 
         return player;
@@ -65,54 +74,60 @@ public class Game {
                     //Runde des Spielers pla
                     for (int pla = 0; pla < player.length; pla++) {
                         if (player[pl].getIsLost() == false) {
+                        	if(player[pl].getIsAiPlayer() == true){
+                        		IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
+                        		//player[pl].aiPlayerChooseShip();
+                        	}
+                        	else{
+                        		IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
+                                player[pla].getField().printPlayField();
 
-                            IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
-                            player[pla].getField().printPlayField();
+                                //1. Auswahl eines verfuegbaren Schiffes. (Methode hierfï¿½r schreiben)
+                                int ship = getAvailableShipToShoot(player, pla);
 
-                            //1. Auswahl eines verfuegbaren Schiffes. (Methode hierfï¿½r schreiben)
-                            int ship = getAvailableShipToShoot(player, pla);
+                                //Reichweite des Schusses, um diese der Methode setShot zu uebergeben
+                                int shootRange = player[pl].getShips()[ship].getShootRange();
 
-                            //Reichweite des Schusses, um diese der Methode setShot zu uebergeben
-                            int shootRange = player[pl].getShips()[ship].getShootRange();
+                                //Hierfuer noch eine Methode schreiben
+                                boolean orientation = false;
+                                if (shootRange > 1) {
+                                    orientation = setShootOrientation();
+                                }
+                                int opponent = getNumberOfOpponent(player, pla);
+                                //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
+                                //Gibt das Spielfeld des Gegners aus
+                                player[opponent].getOpponentField().printOpponentField();
+                                //3. Koordinate auf dem Spielfeld auswï¿½hlen. (Methode hierfï¿½r schreiben)
+                                //Abfrage
+                                String koordinate = getKoordinatesToShoot();
+                            //IO.println("Wo soll das Schiff hinschiessen?");
+                                //Einlesen X-Koordinate
+                                //IO.print("X = ");
+                                //int x = IO.readInt();
+                                //Einlesen Y-Koordinate
+                                //IO.print("Y = ");
+                                //int y = IO.readInt();
 
-                            //Hierfuer noch eine Methode schreiben
-                            boolean orientation = false;
-                            if (shootRange > 1) {
-                                orientation = setShootOrientation();
-                            }
-                            int opponent = getNumberOfOpponent(player, pla);
-                            //2. Auswahl eines Gegners. (Methode hierfuer schreiben)
-                            //Gibt das Spielfeld des Gegners aus
-                            player[opponent].getOpponentField().printOpponentField();
-                            //3. Koordinate auf dem Spielfeld auswï¿½hlen. (Methode hierfï¿½r schreiben)
-                            //Abfrage
-                            String koordinate = getKoordinatesToShoot();
-                        //IO.println("Wo soll das Schiff hinschiessen?");
-                            //Einlesen X-Koordinate
-                            //IO.print("X = ");
-                            //int x = IO.readInt();
-                            //Einlesen Y-Koordinate
-                            //IO.print("Y = ");
-                            //int y = IO.readInt();
+                                //Schiessen
+                                //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
+                                //shootOnPlayField(player, opponent, shootRange, orientation, x, y);
+                                shootOnPlayField(player, opponent, shootRange, orientation, koordinate);
 
-                            //Schiessen
-                            //4. Der Gegner sagt, ob der Schuss ins Wasser ging, ein Schiff getroffen hat, oder ob ein Schiff versenkt wurde.
-                            //shootOnPlayField(player, opponent, shootRange, orientation, x, y);
-                            shootOnPlayField(player, opponent, shootRange, orientation, koordinate);
+                                //Nachladezeit nach Schuss setzen, damit das Schiff erst nachladen muss,
+                                //um wieder schiessen zu koennen
+                                player[pla].getShips()[ship].setCurrentReloadTime();
 
-                            //Nachladezeit nach Schuss setzen, damit das Schiff erst nachladen muss,
-                            //um wieder schiessen zu koennen
-                            player[pla].getShips()[ship].setCurrentReloadTime();
+                                if (checkIfShipAvailable(player, opponent) == false) {
+                                    player[opponent].setLost(true);
+                                }
 
-                            if (checkIfShipAvailable(player, opponent) == false) {
-                                player[opponent].setLost(true);
-                            }
-
-                            if (player[opponent].getIsLost() == true) {
-                                //Spieler player[pla] aus dem Spieler-Array nehmen
-                                IO.println(player[opponent].getName() + " hat verloren!");
-                            }
+                                if (player[opponent].getIsLost() == true) {
+                                    //Spieler player[pla] aus dem Spieler-Array nehmen
+                                    IO.println(player[opponent].getName() + " hat verloren!");
+                                }
+                        	}
                         }
+                            
                     }
                 }
                 //Setzt pl auf 0, damit die Runde vorn beginnt
@@ -162,6 +177,36 @@ public class Game {
 
             //Schiffsausrichtung holen
             shipO = setOrientation();
+            //Schiff wird gesetzt
+            if (!ships[s].placeShip(coordinateInput, shipO, player[playerNumber].getField(), player[playerNumber].getOpponentField())) {
+                IO.println("Das Schiff konnte nicht gesetzt werden. Bitte erneut versuchen.");
+            } else {
+                s++;
+            }
+        }
+        return ships;
+    }
+    
+    public Ship[] placeAllAiShips(Player[] player, int playerNumber) {
+        for (int s = 0; s < ships.length;) {
+            error = false;
+            //Koordinaten holen
+            //IO.print("Bitte geben Sie die Koordinaten fuer " + ships[s].getName() + " ein:");
+            do {
+                //coordinateInput = IO.readString().toLowerCase(); //GroÃŸbuchstaben-> Kleinbuchstaben
+                coordinateInput = AiChooseCoordinate(player, playerNumber);
+            	//Teste Eingabe mit RegEx(^ Anfang, 1 Zahl (1-9) und 1 oder keine Zahl(0-9) und 1 Buchstabe (a-z), $ Ende
+                if (coordinateInput.matches("^[1-9]{1}[0-9]{0,1}[a-z]{1}$")) {
+                    error = false;
+                } else {
+                    //IO.println("Falsche Eingabe, bitte geben sie zuerst die Nummer und dann den Buchstaben des Feldes ein: ");
+                    error = true;
+                }
+            } while (error);
+
+            //Schiffsausrichtung holen
+            //shipO = setOrientation();
+            shipO = chooseAiOrientation();
             //Schiff wird gesetzt
             if (!ships[s].placeShip(coordinateInput, shipO, player[playerNumber].getField(), player[playerNumber].getOpponentField())) {
                 IO.println("Das Schiff konnte nicht gesetzt werden. Bitte erneut versuchen.");
@@ -506,6 +551,54 @@ public class Game {
                 error = true;
             }
         } while (error);
+    }
+    
+  //Ki sucht eine Koordinate aus
+    public static String AiChooseCoordinate(Player[] player, int playerNumber){
+    	//Koordinate
+    	String coordinateInput;
+    	
+    	int Coordinate = getAiYCoordinate(player, playerNumber);
+    	String yCoordinate = Integer.toString(Coordinate);
+    	String xCoordinate = getAiXCoordinate();
+
+    	coordinateInput = yCoordinate + xCoordinate;
+
+    	//Rückgabewert Koordinate
+    	return coordinateInput;
+    }
+
+    public static int getAiYCoordinate(Player[] player, int playerNumber){
+    	
+    	//Range der Zufallszahlen
+    	int pool = player[playerNumber].getField().getPlayField().length - 1;
+    	//Zufallszahl zwischen
+    	return (int)(Math.random() * pool) + 1;
+    }
+    
+    public static String getAiXCoordinate(){
+    	//char 97-122 = abc.....
+    	String coordinate;
+    	int randomNumber = 0;
+    	while(randomNumber < 97) {
+    		randomNumber = (int)(Math.random() * 123);
+    	}
+    	char letter = (char) randomNumber;
+    	coordinate = Integer.toString(randomNumber);
+    	return coordinate;
+    }
+
+    public boolean chooseAiOrientation(){
+    	boolean orientation = false;
+            int orient = (int)(Math.random() * 2) + 1;
+    	if(orient == 1){
+    		error = false;
+                   	orientation = true;	
+    	} else{
+                   	error = false;
+                   	orientation = false;
+            } 
+            return orientation;
     }
 
 }
