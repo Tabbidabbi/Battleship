@@ -22,6 +22,7 @@ public class Player {
     //private Field[][] field;
     private boolean lost = false;
     private boolean isAiPlayer;
+    private String aiLastHitCoordinate;
 
     /**
    	 * Konstruktor
@@ -54,8 +55,6 @@ public class Player {
 
     }
     
-    
-
     public void initialize() {
         
     }
@@ -117,15 +116,19 @@ public class Player {
         this.opponentField = opponentField;
     }
 
-
-
 	public boolean getIsAiPlayer() {
 		return isAiPlayer;
 	}
 
-
-
 	public void setAiPlayer(boolean isAiPlayer) {
 		this.isAiPlayer = isAiPlayer;
+	}
+
+	public String getAiLastHitCoordinate() {
+		return aiLastHitCoordinate;
+	}
+
+	public void setAiLastHitCoordinate(String aiLastCoordinate) {
+		this.aiLastHitCoordinate = aiLastCoordinate;
 	}
 }

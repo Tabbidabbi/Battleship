@@ -73,10 +73,27 @@ public class Game {
 
                     //Runde des Spielers pla
                     for (int pla = 0; pla < player.length; pla++) {
-                        if (player[pl].getIsLost() == false) {
-                        	if(player[pl].getIsAiPlayer() == true){
+                        if (player[pla].getIsLost() == false) {
+                        	if(player[pla].getIsAiPlayer() == true){
                         		IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
-                        		//player[pl].aiPlayerChooseShip();
+                        		player[pla].getField().printPlayField();
+                        		int aiShip = getRandomShip(player, pla);
+                        		int shootRange = player[pl].getShips()[aiShip].getShootRange();
+                        		boolean orientation = false;
+                        		if (shootRange > 1) {
+                        			orientation = chooseAiOrientation();
+                        		}
+                        		int aiOpponent = chooseAiOpponent(player, pla);
+                        		player[aiOpponent].getOpponentField().printOpponentField();
+                        		String aiCoordinateToShoot = AiChooseCoordinate(player, pla);
+                        		shootOnPlayField(player, aiOpponent, shootRange, orientation, aiCoordinateToShoot);
+                        		player[pla].getShips()[aiShip].setCurrentReloadTime();
+                                if (checkIfShipAvailable(player, aiOpponent) == false) {
+                                    player[aiOpponent].setLost(true);
+                                }
+                                if (player[aiOpponent].getIsLost() == true) {
+                                    IO.println(player[aiOpponent].getName() + " hat verloren!");
+                                }
                         	}
                         	else{
                         		IO.println("Spieler " + player[pla].getNumber() + ": " + player[pla].getName() + " ist am Zug!");
@@ -100,7 +117,7 @@ public class Game {
                                 //3. Koordinate auf dem Spielfeld ausw�hlen. (Methode hierf�r schreiben)
                                 //Abfrage
                                 String koordinate = getKoordinatesToShoot();
-                            //IO.println("Wo soll das Schiff hinschiessen?");
+                                //IO.println("Wo soll das Schiff hinschiessen?");
                                 //Einlesen X-Koordinate
                                 //IO.print("X = ");
                                 //int x = IO.readInt();
@@ -143,7 +160,9 @@ public class Game {
 
     }
 
-    public int getAmountOfPlayer() {
+    
+
+	public int getAmountOfPlayer() {
         //Do-While Schleife welche bei falsche Eingabe den Spieler auffordert, die Eingabe zu wiederholen.
         do {
             IO.print("Geben Sie die Anzahl der Spieler ein (2-6): ");
@@ -462,6 +481,22 @@ public class Game {
         opponent--;
         return opponent;
     }
+    
+    private int chooseAiOpponent(Player[] player, int playerNumber) {
+    	int aiOpponent; 
+    	error = false;
+        do {
+        	aiOpponent = (int)(Math.random() * player.length);
+            
+            if (playerNumber != aiOpponent && player[aiOpponent].getIsLost() == false) {
+                error = false;
+            }
+            else{
+            	error = true;
+            }
+        } while (error);
+		return aiOpponent;
+	}
 
     /**
      *
@@ -584,7 +619,7 @@ public class Game {
     		randomNumber = (int)(Math.random() * 123);
     	}
     	char letter = (char) randomNumber;
-    	coordinate = Integer.toString(randomNumber);
+    	coordinate = Character.toString(letter);
     	return coordinate;
     }
 
@@ -601,4 +636,23 @@ public class Game {
             return orientation;
     }
 
+    public int getRandomShip(Player[] player, int playerNumber){
+    	int randomShip; 
+    	error = false;
+        do {
+        	randomShip = (int)(Math.random() * player[playerNumber].getShips().length);
+            
+            if (player[playerNumber].getShips()[randomShip].getIsSunk() == false && player[playerNumber].getShips()[randomShip].getCurrentReloadTime() == 0) {
+                error = false;
+            }
+            else{
+            	error = true;
+            }
+        } while (error);
+    	 	
+    	    	
+    	return randomShip;
+    }
+    
+    
 }
