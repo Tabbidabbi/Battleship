@@ -85,8 +85,13 @@ public class Game {
                         		}
                         		int aiOpponent = chooseAiOpponent(player, pla);
                         		player[aiOpponent].getOpponentField().printOpponentField();
-                        		String aiCoordinateToShoot = AiChooseCoordinate(player, pla);
-                        		shootOnPlayField(player, aiOpponent, shootRange, orientation, aiCoordinateToShoot);
+                        		//Koordinate wird gewählt
+                        		String aiCoordinateToShoot = AiChooseCoordinate(player, pla, player[pla].getAiLastHitCoordinate());
+                        		
+                        		String lastHitCoordinate = aiShootOnPlayField(player, aiOpponent, shootRange, orientation, aiCoordinateToShoot); 
+                        		//Letzte getroffene Koordinate
+                        		player[pla].setAiLastHitCoordinate(lastHitCoordinate);
+                        		
                         		player[pla].getShips()[aiShip].setCurrentReloadTime();
                                 if (checkIfShipAvailable(player, aiOpponent) == false) {
                                     player[aiOpponent].setLost(true);
@@ -343,6 +348,37 @@ public class Game {
         //Gibt das Feld des Gegner aus
         player[opponent].getOpponentField().printOpponentField();
     }
+    
+    public String aiShootOnPlayField(Player[] player, int opponent, int shootRange, boolean orientation, String koordinate) {
+        int[] hitShips;
+        String hitCoordinate = null;
+
+        //Felder des gegnerischen Spielers werden auf abgeschossen gesetzt
+        //hitShips = player[opponent].getField().setShot(x, y, shootRange, orientation);
+        //player[opponent].getOpponentField().setShot(x, y, shootRange, orientation);
+        hitShips = player[opponent].getField().setShot(koordinate, shootRange, orientation);
+        player[opponent].getOpponentField().setShot(koordinate, shootRange, orientation);
+
+        //Pruefen ob schiffe getroffen
+        for (int i = 0; i < hitShips.length; i++) {
+            for (int s = 0; s < player[opponent].getShips().length; s++) {
+                if (player[opponent].getShips()[s].getNumber() == hitShips[i]) {
+                    player[opponent].getShips()[s].setHitpoints();
+                }
+            }
+
+        }
+        
+        if(koordinate.equals(player[opponent].getField().getFieldNumber())){
+        	hitCoordinate = koordinate;
+        }
+      //Gibt das Feld des Gegner aus
+        player[opponent].getOpponentField().printOpponentField();
+        return hitCoordinate;
+
+        
+        
+    }
 
     /**
      * Gibt Liste der Spieler aus
@@ -588,17 +624,58 @@ public class Game {
         } while (error);
     }
     
-  //Ki sucht eine Koordinate aus
-    public static String AiChooseCoordinate(Player[] player, int playerNumber){
+    public String AiChooseCoordinate(Player[] player, int playerNumber){
+    	error = false;
+    	do{
+    		String coordinateInput = null;
+    		int Coordinate = getAiYCoordinate(player, playerNumber);
+        	String yCoordinate = Integer.toString(Coordinate);
+        	String xCoordinate = getAiXCoordinate(player, playerNumber);
+        	coordinateInput = yCoordinate + xCoordinate;
+        	//Prueft, ob Koordinate getroffen
+        	for(int i = 0; i < player[playerNumber].getField().getPlayField().length; i++){
+        		for(int j = 0; j < player[playerNumber].getField().getPlayField()[i].length; j++){
+        			if(coordinateInput == player[playerNumber].getField().getPlayField()[i][j].getFieldnumber()){
+        				if(player[playerNumber].getField().getPlayField()[i][j].getIsHit() == true){
+        					error = true;
+        				}
+        			}
+        		}
+        		
+        	}
+    	}while (error);
     	//Koordinate
-    	String coordinateInput;
     	
-    	int Coordinate = getAiYCoordinate(player, playerNumber);
-    	String yCoordinate = Integer.toString(Coordinate);
-    	String xCoordinate = getAiXCoordinate();
-
-    	coordinateInput = yCoordinate + xCoordinate;
-
+    	//Rückgabewert Koordinate
+    	return coordinateInput;
+    }
+    
+  //Ki sucht eine Koordinate aus
+    public static String AiChooseCoordinate(Player[] player, int playerNumber, String lastHitCoordinate){
+    	//Koordinate
+    	String coordinateInput = null;
+    	String newY, newX;
+    	
+    	if(lastHitCoordinate != null){
+    		//Um die Koordinate rum schiessen
+    		
+    		//Findet x und y heraus fuer die lastHitCoordinate
+    		for (int y = 0; y < player[playerNumber].getField().getPlayField().length; y++) {
+                for (int x = 0; x < player[playerNumber].getField().getPlayField()[y].length; x++) {
+                    if (lastHitCoordinate.equals(player[playerNumber].getField().getPlayField()[y][x].getFieldnumber())) {
+                        	newY = Integer.toString(y);
+                        	newX = Integer.toString(x);
+                        }
+                    }
+                }
+    		
+    	}
+    	else{
+    		int Coordinate = getAiYCoordinate(player, playerNumber);
+        	String yCoordinate = Integer.toString(Coordinate);
+        	String xCoordinate = getAiXCoordinate(player, playerNumber);
+        	coordinateInput = yCoordinate + xCoordinate;
+    	}
     	//Rückgabewert Koordinate
     	return coordinateInput;
     }
@@ -611,12 +688,13 @@ public class Game {
     	return (int)(Math.random() * pool) + 1;
     }
     
-    public static String getAiXCoordinate(){
+    public static String getAiXCoordinate(Player[] player, int playerNumber){
     	//char 97-122 = abc.....
     	String coordinate;
     	int randomNumber = 0;
+    	int endOfRange = player[playerNumber].getField().getPlayField().length + 96;
     	while(randomNumber < 97) {
-    		randomNumber = (int)(Math.random() * 123);
+    		randomNumber = (int)(Math.random() * endOfRange);
     	}
     	char letter = (char) randomNumber;
     	coordinate = Character.toString(letter);
