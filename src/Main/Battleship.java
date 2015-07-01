@@ -17,7 +17,6 @@ public class Battleship {
     	Game game;
         IO.println("Wollen sie das Spiel laden? (ja/nein)");
         String wantLoad = IO.readString();
-        boolean answer;
         if(wantLoad.equals("ja")){
         	game = SaveLoad.load();
         	

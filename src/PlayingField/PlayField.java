@@ -1,5 +1,6 @@
 package PlayingField;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import IO.IO;
@@ -99,7 +100,14 @@ public class PlayField implements Serializable {
                 for (int x = 0; x < getPlayField()[y].length; x++) {
                     if (koordinate.equals(getPlayField()[y][x].getFieldnumber())) {
                         for (int i = 0; i < shootRange; i++) {
-                            hitShips[i] = this.fieldMatrix[y][x + i].setIsShot();
+                        	try{
+                        		hitShips[i] = this.fieldMatrix[y][x + i].setIsShot();
+                        	}
+                        	catch(IndexOutOfBoundsException e){
+                        		e.printStackTrace();
+                        		
+                        	}
+                            
                         }
                     }
                 }
@@ -110,7 +118,12 @@ public class PlayField implements Serializable {
                 for (int x = 0; x < getPlayField()[y].length; x++) {
                     if (koordinate.equals(getPlayField()[y][x].getFieldnumber())) {
                         for (int i = 0; i < shootRange; i++) {
-                            hitShips[i] = this.fieldMatrix[y + i][x].setIsShot();
+                        	try{
+                        		hitShips[i] = this.fieldMatrix[y + i][x].setIsShot();
+                        	}
+                            catch(IndexOutOfBoundsException e){
+                            	e.printStackTrace();
+                            }
                         }
                     }
                 }

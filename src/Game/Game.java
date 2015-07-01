@@ -29,6 +29,7 @@ public class Game implements Serializable{
     Ship ships[];//Speicher fuer alle Schiffe
     int amountOfPlayer;//Speicher fuer Spieleranzahl
     boolean error = false; //Speicher für falsche Eingabe, wenn Spieler falsche Eingabe tätigt wird der Wert auf "true" gestellt.
+    private int roundNumber = 1;
 
     public Player[] initializePlayer() {
         //Spiel beginnt
@@ -37,7 +38,7 @@ public class Game implements Serializable{
         amountOfPlayer = getAmountOfPlayer();
 
         //Spieler-Array erstellen
-        Player[] player = new Player[amountOfPlayer];//Spieleranzahl holen
+        player = new Player[amountOfPlayer];//Spieleranzahl holen
         for (int i = 0; i < amountOfPlayer; i++) {
         	
             IO.print("Spieler " + (i + 1) + " - Geben Sie ihren Namen ein: ");
@@ -56,27 +57,18 @@ public class Game implements Serializable{
             }
             
         }
+        
+        IO.println("!!!Das Spiel beginnt!!!");
 
         return player;
 
     }
 
-    private boolean getIfAiPlayer() {
-    	boolean ai = false;
-    	IO.print("Ist der Spieler eine kuenstliche Intelleigenz? (ja/ nein)");
-    	String answer = IO.readString();
-    	if(answer.equals("ja")){
-    		ai = true;    		
-    	}
-    	else {
-    		ai = false;
-    	}
-    	
-		return ai;
-	}
 
 	public void playRounds() {
         //Runde beginnt
+		IO.println("Runde " + this.roundNumber + " beginnt.");
+		
         //solange es mehr als einen spieler gibt
         while (checkAmountOfAvailablePlayers(player) > 1) {
             for (int pl = 0; pl < player.length; pl++) {
@@ -104,6 +96,7 @@ public class Game implements Serializable{
                         			orientation = chooseAiOrientation();
                         		}
                         		int aiOpponent = chooseAiOpponent(player, pla);
+                        		IO.println("Spielfeld vom Gegner: " + player[aiOpponent].getName());
                         		player[aiOpponent].getOpponentField().printOpponentField();
                         		//Koordinate wird gew�hlt
                         		String aiCoordinateToShoot = AiChooseCoordinate(player, pla, player[pla].getAiLastHitCoordinate());
@@ -181,6 +174,7 @@ public class Game implements Serializable{
             }
         }
         //Ausgabe des Spielers der gewonnen hat
+        setRoundNumber();
         printWinner(player);
 
     }
@@ -393,6 +387,7 @@ public class Game implements Serializable{
         	hitCoordinate = koordinate;
         }
       //Gibt das Feld des Gegner aus
+        IO.println("Spielfeld vom Gegner: " + player[opponent].getName());
         player[opponent].getOpponentField().printOpponentField();
         return hitCoordinate;
 
@@ -753,5 +748,28 @@ public class Game implements Serializable{
     	return randomShip;
     }
     
+    private boolean getIfAiPlayer() {
+    	boolean ai = false;
+    	IO.print("Ist der Spieler eine kuenstliche Intelleigenz? (ja/ nein)");
+    	String answer = IO.readString();
+    	if(answer.equals("ja")){
+    		ai = true;    		
+    	}
+    	else {
+    		ai = false;
+    	}
+    	
+		return ai;
+	}
+
+
+	public int getRoundNumber() {
+		return this.roundNumber;
+	}
+
+
+	public void setRoundNumber() {
+		this.roundNumber++;
+	}
     
 }
