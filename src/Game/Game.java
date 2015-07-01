@@ -6,7 +6,6 @@
 package Game;
 
 import IO.IO;
-import Player.AiPlayer;
 import Player.Player;
 import Ships.Ship;
 
