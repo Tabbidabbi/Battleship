@@ -1,13 +1,19 @@
 package Ships;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dennis
  *
  */
-public class Submarine extends Ship {
+public class Submarine extends Ship implements Serializable{
 
-    String name = "U-Boot";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6266597041678209639L;
+	String name = "U-Boot";
 
   //U-Boote positionieren
     

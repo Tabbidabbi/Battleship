@@ -1,12 +1,18 @@
 package Ships;
 
+import java.io.Serializable;
+
 import PlayingField.PlayField;
 import PlayingField.Field;
 import IO.IO;
 
-public abstract class Ship {
+public abstract class Ship implements Serializable {
 
-    int size;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5112884400853827578L;
+	int size;
     boolean sunk = false;
     int number;
     // true = Horizontal, false = vertikal

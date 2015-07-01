@@ -1,5 +1,7 @@
 package PlayingField;
 
+import java.io.Serializable;
+
 import IO.IO;
 
 /**
@@ -7,8 +9,12 @@ import IO.IO;
  * @author Dennis
  *
  */
-public class Field {
+public class Field implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3238397344711825019L;
 	//Flags
 	private boolean isShot;  //O 
 	private boolean isWater;  //~

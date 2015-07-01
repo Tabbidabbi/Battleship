@@ -1,13 +1,19 @@
 package Ships;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Dennis
  *
  */
 
-public class Frigate extends Ship {
+public class Frigate extends Ship implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2342710080621585229L;
 	String name = "Fregatte";
 	
 	//Frigate positionieren

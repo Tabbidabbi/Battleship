@@ -1,5 +1,7 @@
 package Player;
 
+import java.io.Serializable;
+
 import Ships.Corvette;
 import Ships.Ship;
 import Ships.Submarine;
@@ -12,9 +14,13 @@ import PlayingField.PlayField;
  * @author Dennis
  *
  */
-public class Player {
+public class Player implements Serializable{
 
-    private int number;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6962238914088060260L;
+	private int number;
     private String name;
     private Ship[] ships = new Ship[6];
     private PlayField playfield;
@@ -30,10 +36,11 @@ public class Player {
      * @param name
    	 */
     
-    public Player(int number, String name) {
+    public Player(int number, String name, boolean isAiPlayer) {
 
         this.number = number;
         this.name = name;
+        this.isAiPlayer = isAiPlayer;
 
 		//Schiffs-Array mit Schiffen f�llen
         //1 Zerstoerer

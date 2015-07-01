@@ -1,5 +1,7 @@
 package PlayingField;
 
+import java.io.Serializable;
+
 import IO.IO;
 import PlayingField.Field;
 
@@ -8,9 +10,13 @@ import PlayingField.Field;
  * @author Dennis
  *
  */
-public class PlayField {
+public class PlayField implements Serializable {
 
-    private Field[][] fieldMatrix;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5797716332246340540L;
+	private Field[][] fieldMatrix;
     private String fieldNumber;
     private int fieldFigure;
     char letter;

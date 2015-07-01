@@ -1,5 +1,7 @@
 package Ships;
 
+import java.io.Serializable;
+
 
 /**
  * Subclass of Ship
@@ -7,8 +9,12 @@ package Ships;
  * @author Dennis
  * 
  */
-public class Destroyer extends Ship {
+public class Destroyer extends Ship implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2651661978237002757L;
 	String name = "Zerstoerer";
 	
 	//Zerstörer positionieren

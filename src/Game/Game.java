@@ -9,15 +9,21 @@ import IO.IO;
 import Player.AiPlayer;
 import Player.Player;
 import Ships.Ship;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Tobias
  */
-public class Game {
+public class Game implements Serializable{
 
-    String input;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4330824816691989102L;
+	String input;
     String coordinateInput;//Eingabe der Koordinate
     boolean shipO;// Ausrichtung des Schiffes (h,v)
     Player player[];
@@ -37,8 +43,9 @@ public class Game {
         	
             IO.print("Spieler " + (i + 1) + " - Geben Sie ihren Namen ein: ");
             String name = IO.readString();//Einlesen des Spielernamens
-            player[i] = new Player(i + 1, name);//Jeder Index im Array bekommt einen Spieler
-// Dynamische Schiffliste abfragen
+            boolean aiPlayer =  getIfAiPlayer();
+            player[i] = new Player(i + 1, name, aiPlayer);//Jeder Index im Array bekommt einen Spieler
+            // Dynamische Schiffliste abfragen
 
             //Anzahl der Schiffe holen.
             ships = player[i].getShips();
@@ -55,7 +62,21 @@ public class Game {
 
     }
 
-    public void playRounds() {
+    private boolean getIfAiPlayer() {
+    	boolean ai = false;
+    	IO.print("Ist der Spieler eine kuenstliche Intelleigenz? (ja/ nein)");
+    	String answer = IO.readString();
+    	if(answer.equals("ja")){
+    		ai = true;    		
+    	}
+    	else {
+    		ai = false;
+    	}
+    	
+		return ai;
+	}
+
+	public void playRounds() {
         //Runde beginnt
         //solange es mehr als einen spieler gibt
         while (checkAmountOfAvailablePlayers(player) > 1) {
