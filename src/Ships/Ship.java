@@ -201,10 +201,10 @@ public abstract class Ship implements Serializable {
                     //Abfrage, welche prüft ob das Feld auf der das Schiff gesetzt werden soll, deaktiviert ist. Falls ja:
                                 //gibt die ganze Methode "false zurück".
                                 if (!playfield.getPlayField()[y + i][x].getIsActive()) {
-                                    IO.println("Leider nicht möglich, das Schiff muss mindestens 1 Feld Abstand zum nächsten Schiff haben!");
+                                    IO.println("Leider nicht moeglich, das Schiff muss mindestens 1 Feld Abstand zum nächsten Schiff haben!");
                                     return false;
                                 }
-                                //Falls das Schiff mit der Größe nicht in das Array passt, fange die Fehlermeldung ab und gib folgendes aus...
+                                //Falls das Schiff mit der Groesse nicht in das Array passt, fange die Fehlermeldung ab und gib folgendes aus...
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 IO.println("Das Schiff passt so nicht auf das Spielfeld, bitte neue koordinaten eingeben!!!");
                                 return false;
@@ -218,9 +218,9 @@ public abstract class Ship implements Serializable {
                             playfield.getPlayField()[y + i][x].setHasShip(true);
                             playfield.getPlayField()[y + i][x].setShipNumber(getNumber());
                             
-                            opponentfield.getPlayField()[y][x + i].setWater(false);
-                            opponentfield.getPlayField()[y][x + i].setHasShip(true);
-                            opponentfield.getPlayField()[y][x + i].setShipNumber(getNumber());
+                            opponentfield.getPlayField()[y + i][x].setWater(false);
+                            opponentfield.getPlayField()[y + i][x].setHasShip(true);
+                            opponentfield.getPlayField()[y + i][x].setShipNumber(getNumber());
                             
                         }
 

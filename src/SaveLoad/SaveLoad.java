@@ -16,6 +16,7 @@ public class SaveLoad {
 			ObjectOutputStream writeFile = new ObjectOutputStream(createFile);
 			
 			writeFile.writeObject(game);
+			writeFile.close();
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -36,6 +37,7 @@ public class SaveLoad {
 			catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
+			readFile.close();
 			
 			
 		}
@@ -43,6 +45,7 @@ public class SaveLoad {
 			e.printStackTrace();
 			
 		}
+		
 		return game;
 	}
 

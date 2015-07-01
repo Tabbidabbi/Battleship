@@ -646,8 +646,9 @@ public class Game implements Serializable{
     
     public String AiChooseCoordinate(Player[] player, int playerNumber){
     	error = false;
+    	String coordinateInput = null;
     	do{
-    		String coordinateInput = null;
+    		
     		int Coordinate = getAiYCoordinate(player, playerNumber);
         	String yCoordinate = Integer.toString(Coordinate);
         	String xCoordinate = getAiXCoordinate(player, playerNumber);
@@ -655,10 +656,10 @@ public class Game implements Serializable{
         	//Prueft, ob Koordinate getroffen
         	for(int i = 0; i < player[playerNumber].getField().getPlayField().length; i++){
         		for(int j = 0; j < player[playerNumber].getField().getPlayField()[i].length; j++){
-        			if(coordinateInput == player[playerNumber].getField().getPlayField()[i][j].getFieldnumber()){
-        				if(player[playerNumber].getField().getPlayField()[i][j].getIsHit() == true){
-        					error = true;
-        				}
+        			if(coordinateInput == player[playerNumber].getField().getPlayField()[i][j].getFieldnumber() && player[playerNumber].getField().getPlayField()[i][j].getIsHit() == true){
+        				
+        				error = true;
+        				
         			}
         		}
         		
